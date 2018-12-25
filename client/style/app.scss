@@ -1,0 +1,16 @@
+/*
+ * @Author: Nisal Madusanka(EruliaF) 
+ * @Date: 2018-12-24 17:09:59 
+ * @Last Modified by: Nisal Madusanka(EruliaF)
+ * @Last Modified time: 2018-12-24 17:20:12
+ */
+
+
+ /*include bootstrap css classes*/
+@import '../../node_modules/bootstrap/scss/bootstrap';
+@import '../../node_modules/@fortawesome/fontawesome-free/scss/fontawesome';
+
+@import './base/variables';
+@import './base/function';
+@import './base/mixins';
+@import './base/base';

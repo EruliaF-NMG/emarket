@@ -1,0 +1,82 @@
+/*
+ * @Author: Nisal Madusanka(EruliaF) 
+ * @Date: 2018-12-24 17:19:44 
+ * @Last Modified by: Nisal Madusanka(EruliaF)
+ * @Last Modified time: 2018-12-25 17:43:05
+ */
+
+ /*
+ * default init CSS for whole web site.
+*/
+
+.initclass{
+    margin: 0px;
+    padding: 0px;
+    text-decoration: none;
+    border: none;
+    font-weight: normal;
+    text-shadow:none;  
+    background-color: none;
+    box-shadow:none;
+}
+
+.defaultFontFamily{
+   font-family: Arial, Helvetica, sans-serif;    
+}
+
+.defaultFontSize{
+    font-size: $defaultFontSize;
+}
+
+body{
+    @extend .initclass;
+    @extend .defaultFontFamily;
+    @extend .defaultFontSize;
+}
+
+body,h1,h2,h3,h4,h5,h6,p,font,span,div,a,table{
+    @extend .initclass;
+    @extend .defaultFontFamily;
+    margin: 0px;
+    padding: 0px;
+}
+
+a{
+    text-decoration: none;
+}
+
+a:hover{
+    text-decoration: none;
+}
+
+p{
+    @extend .defaultFontSize;
+}
+
+.displayNone {
+    display: none;
+}
+
+.displayBlock {
+    display: block;
+}
+
+.divLeft{
+    float: left;
+}
+
+.divRight{
+    float: right;
+}
+
+.div100{
+    @extend .divLeft;
+    width: 100%;
+}
+
+
+.invalid{
+    .invalid-feedback{
+        display: block !important;
+    }
+}
