@@ -4,9 +4,13 @@ import bodyParser from 'body-parser';
 import compress from 'compression'
 import cors from 'cors';
 import helmet from 'helmet';
+import passport from "passport";
 
 import devBundle from './devBundle';
 import template from '../../template';
+require('../app/helpers/auth/auth');
+
+import authRoutes from "../app/routes/auth.routes";
 
 const CURRENT_WORKING_DIR = process.cwd()
 const app = express()
@@ -20,11 +24,13 @@ app.use(compress())
 app.use(helmet())
 // enable CORS - Cross Origin Resource Sharing
 app.use(cors())
+//passport init
+app.use(passport.initialize());
 
 app.use('/dist', express.static(path.join(CURRENT_WORKING_DIR, 'dist')))
 
 // mount routes
-//app.use('/api', userRoutes)
+app.use('/api', authRoutes)
 //Front-end
 app.get('*', (req, res) => {
     res.status(200).send(template())

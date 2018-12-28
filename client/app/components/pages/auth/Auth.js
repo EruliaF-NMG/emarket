@@ -1,13 +1,19 @@
 import React, { Component } from "react";
 import Login from "./includes/Login";
 import Register from "./includes/Register";
-import MainWrapper from "../../ui-elements/template/MainWrapper"
+import MainWrapper from "../../ui-elements/template/MainWrapper";
+import {Breadcrumb} from "../../ui-elements/common-elements/CommonElements";
 
 class Auth extends Component {
   render() {
     return (
-      <div className="container">
-      <MainWrapper/>
+      <MainWrapper>      
+
+        <Breadcrumb>
+          <i urlTo="/Home" displayName="Home" />
+          <i urlTo="/login" displayName="Login / Register"/>
+        </Breadcrumb>
+
         <div className="row">
           <div className="col-md-6 col-sm-12 divLeft">
           <Login/>
@@ -16,7 +22,7 @@ class Auth extends Component {
           <Register/>        
           </div>
         </div> 
-      </div>
+      </MainWrapper>
     );
   }
 }

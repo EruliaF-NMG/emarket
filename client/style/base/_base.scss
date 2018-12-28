@@ -2,7 +2,7 @@
  * @Author: Nisal Madusanka(EruliaF) 
  * @Date: 2018-12-24 17:19:44 
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2018-12-25 17:43:05
+ * @Last Modified time: 2018-12-28 19:47:27
  */
 
  /*
@@ -79,4 +79,32 @@ p{
     .invalid-feedback{
         display: block !important;
     }
+}
+
+//page loard
+.pageLoader{
+    position: absolute;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    background-color:rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .loader{  
+        flex-direction: column;
+        text-align: center;
+        width: 70px;
+        height: 70px;
+    }
+}
+
+//override
+.breadcrumb{
+  
+        margin-top: 16px;
+    
 }

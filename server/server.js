@@ -5,11 +5,11 @@ import {mongoDBUrl,port} from "./config/core";
 
 // Connection URL
 mongoose.Promise = global.Promise
-mongoose.connect(mongoDBUrl)
+mongoose.connect(mongoDBUrl);
 mongoose.connection.on('error', () => {
   throw new Error(`unable to connect to database: ${mongoDBUrl}`)
 })
-
+mongoose.set('debug', true);
 app.listen(port, (err) => {
   if (err) {
     console.log(err)

@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 
 import { InputBox, Button } from "../../../ui-elements/form/CommonElements";
 import * as CoreReducerActions from "../../../../actions/common/CoreActions";
+import * as AuthActions from "../../../../actions/auth/AuthActions";
 
 class Login extends Component {
   render() {
@@ -38,7 +39,10 @@ class Login extends Component {
               onChangeTxt={(eventData)=>coreActions.handleInput(eventData.name,eventData.value)}
             />
 
-            <Button buttonTxt="Login" />
+            <Button 
+              buttonTxt="Login"
+              onClickBtn={()=>authActions.registerUser(formData)}
+             />
           </div>
         </div>
       </div>
@@ -55,7 +59,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        coreActions: bindActionCreators(CoreReducerActions, dispatch),        
+        coreActions: bindActionCreators(CoreReducerActions, dispatch),   
+        authActions: bindActionCreators(AuthActions, dispatch),        
     };
 }
 

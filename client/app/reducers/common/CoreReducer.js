@@ -30,13 +30,7 @@ export default function coreReducer(state = initState, action) {
                 ...state,
                 errorList: initState.errorList,
             };
-            break;    
-        case preLoaderKey:
-            return {
-                ...state,
-                errorList: initState.errorList,
-            };
-            break;        
+            break;       
         default:
             return state
     }
