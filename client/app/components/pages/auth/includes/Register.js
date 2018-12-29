@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import { InputBox, Button } from "../../../ui-elements/form/CommonElements";
+import { InputBox, Button,CheckBox } from "../../../ui-elements/form/CommonElements";
 import * as CoreReducerActions from "../../../../actions/common/CoreActions";
 import * as AuthActions from "../../../../actions/auth/AuthActions";
 
@@ -30,7 +30,7 @@ class Register extends Component {
               inputValue={formData.name}
               onChangeTxt={(eventData)=>coreActions.handleInput(eventData.name,eventData.value)}
               inputType="text"
-              errorTxt=""
+              errorTxt={errorList.name}
             />
 
             <InputBox
@@ -41,7 +41,7 @@ class Register extends Component {
               inputValue={formData.email}
               onChangeTxt={(eventData)=>coreActions.handleInput(eventData.name,eventData.value)}
               inputType="text"
-              errorTxt=""
+              errorTxt={errorList.email}
             />
 
             <InputBox
@@ -52,9 +52,19 @@ class Register extends Component {
               inputValue={formData.password}
               onChangeTxt={(eventData)=>coreActions.handleInput(eventData.name,eventData.value)}
               inputType="password"
-              errorTxt=""
+              errorTxt={errorList.password}
             />
 
+            <CheckBox
+              inputID="seller"
+              inputDisplayName="Register as a Merchant"
+              inputName="seller"
+              inputValue={formData.seller||false}
+              onChangeItem={(eventData)=>coreActions.handleInput(eventData.name,eventData.value)}
+              errorTxt={errorList.seller}
+            />
+
+           
             <Button buttonTxt="Register" onClickBtn={()=>authActions.registerUser(formData)}  />
 
           </div>

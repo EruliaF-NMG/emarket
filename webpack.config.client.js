@@ -8,6 +8,7 @@ const config = {
   mode: "development",
   devtool: "eval-source-map",
   entry: [
+      "@babel/polyfill",
       path.join(CURRENT_WORKING_DIR, "client/index.js"),
       path.join(CURRENT_WORKING_DIR, "client/style/app.scss")
     ],

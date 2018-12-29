@@ -12,8 +12,6 @@ router.route('/oauth/token')
   .post(validateLogin,oauth2.token)
 
 router.route('/auth/userInfo')
-  .get(authCtrl.requireSignin,function(req, res) {    
-    res.json(req.user)
-})  
+  .get(authCtrl.requireSignin,authCtrl.getUserInfo)  
 
 export default router

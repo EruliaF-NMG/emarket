@@ -11,6 +11,7 @@ import template from '../../template';
 require('../app/helpers/auth/auth');
 
 import authRoutes from "../app/routes/auth.routes";
+import userRoutes from "../app/routes/user.routes";
 
 const CURRENT_WORKING_DIR = process.cwd()
 const app = express()
@@ -30,7 +31,8 @@ app.use(passport.initialize());
 app.use('/dist', express.static(path.join(CURRENT_WORKING_DIR, 'dist')))
 
 // mount routes
-app.use('/api', authRoutes)
+app.use('/api',authRoutes)
+app.use('/api',userRoutes)
 //Front-end
 app.get('*', (req, res) => {
     res.status(200).send(template())

@@ -42,7 +42,7 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: false
   },
-  profile:profileSchema,
+  profile:{ type: profileSchema, default: profileSchema },
   updated: Date,
   created: {
     type: Date,

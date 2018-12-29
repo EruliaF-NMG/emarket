@@ -68,9 +68,37 @@ const Button=({
     );
 }
 
+const CheckBox = ({
+    inputwrapperCss="div100",
+    inputID="",
+    inputDisplayName="",
+    inputName="",
+    inputCss="",
+    inputValue=true,
+    onChangeItem=emptyFun,
+    errorTxt=""
+}) => {
+    return (
+        <div className={`form-check ${inputwrapperCss}`}>
+        <input 
+            className={`form-check-input ${inputCss}`} 
+            type="checkbox" 
+            checked={inputValue}
+            name={inputName}
+            id={inputID} 
+            onChange={(event)=>onChangeItem({name:event.target.name,value:!inputValue,event:event})}
+        />
+        <label className="form-check-label" htmlFor={inputID} >
+           {inputDisplayName}
+        </label>
+        </div>      
+    )
+}
+
 
 export {
     DefaultFormWRapper,
     InputBox,
-    Button
+    Button,
+    CheckBox
 }

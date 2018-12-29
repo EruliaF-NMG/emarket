@@ -8,7 +8,7 @@ import * as AuthActions from "../../../../actions/auth/AuthActions";
 
 class Login extends Component {
   render() {
-      let {formData,errorList,coreActions} =this.props
+      let {formData,errorList,coreActions,authActions} =this.props
     return (
       <div className="card col-md-12 divLeft">
         <div className="card-body">
@@ -23,7 +23,7 @@ class Login extends Component {
               inputName="authEmail"
               inputPlaceholder="Enter E-mail Address"
               inputType="text"
-              errorTxt=""
+              errorTxt={errorList.authEmail}
               inputValue={formData.authEmail}
               onChangeTxt={(eventData)=>coreActions.handleInput(eventData.name,eventData.value)}
             />
@@ -34,14 +34,14 @@ class Login extends Component {
               inputName="authPwd"
               inputPlaceholder="Enter Password"
               inputType="password"
-              errorTxt=""
+              errorTxt={errorList.authPwd}
               inputValue={formData.authPwd}
               onChangeTxt={(eventData)=>coreActions.handleInput(eventData.name,eventData.value)}
             />
 
             <Button 
               buttonTxt="Login"
-              onClickBtn={()=>authActions.registerUser(formData)}
+              onClickBtn={()=>authActions.loginUser(formData)}
              />
           </div>
         </div>

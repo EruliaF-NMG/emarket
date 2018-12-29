@@ -47,7 +47,7 @@ function updateAPIDataToStore(response,storeElementKey){
     }
 }
 
-export function setDB(api,method="POST",requestBody={},stateKey="createData",responseMessage=[]) {
+function setDB(api,method="POST",requestBody={},stateKey="createData",responseMessage=[]) {
     return dispatch => {
         try {
 
@@ -60,7 +60,7 @@ export function setDB(api,method="POST",requestBody={},stateKey="createData",res
                     //Remove loader
                     dispatch(setPreLoader(false));                  
 
-                    if(response.data.status=="formError"){
+                    if(response.data.status=="validation-error"){
                         //set Error                        
                         dispatch(setInputErrors(response.data.result));
 

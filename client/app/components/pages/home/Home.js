@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-
+import MainWrapper from "../../ui-elements/template/MainWrapper";
 
 class Home extends Component {
     render() {
       return (
-        <div>
+        <MainWrapper>
             Home
-        </div>
+        </MainWrapper>
       );
     }
   }

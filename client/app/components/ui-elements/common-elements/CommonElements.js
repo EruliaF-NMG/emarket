@@ -29,8 +29,8 @@ const PageFullLoader = ({
           {
               (status) ? (
                   <div className="pageLoader">                      
-                        <div class="loader spinner-border text-warning" role="status">
-                          <span class="sr-only">Loading...</span>
+                        <div className="loader spinner-border text-warning" role="status">
+                          <span className="sr-only">Loading...</span>
                         </div>                      
                   </div>
               ) : (null)

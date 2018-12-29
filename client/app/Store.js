@@ -2,7 +2,7 @@
  * @Author: Nisal Madusanka(EruliaF) 
  * @Date: 2018-12-25 10:33:42 
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2018-12-28 20:10:29
+ * @Last Modified time: 2018-12-29 10:16:33
  */
 
 import { createStore,applyMiddleware  } from "redux";
@@ -13,10 +13,12 @@ import { combineReducers } from "redux";
 
 import coreReducer from "../app/reducers/common/CoreReducer";
 import coreUIReducer from "../app/reducers/common/CoreUIReducer";
+import authReducer from "../app/reducers/auth/AuthReducer";
 
 const rootReducer = combineReducers({  
     coreReducer,
-    coreUIReducer
+    coreUIReducer,
+    authReducer
 })
 
 export default function configureStore() {
