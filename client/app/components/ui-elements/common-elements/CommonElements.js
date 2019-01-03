@@ -1,6 +1,10 @@
 import React from "react";
 import { Link } from 'react-router-dom';
 
+
+
+const emptyFun = () => undefined;
+
 const Breadcrumb=(props)=>{
     return(
         <nav aria-label="breadcrumb">
@@ -39,8 +43,70 @@ const PageFullLoader = ({
   );
 }
 
+const ModelHeader=({
+    title="",
+    elementCss="",
+    buttonCss="",
+    onClickBtn=emptyFun,
+})=>{
+    return(
+        <div className={`modal-header ${elementCss}`}>
+            <h5 className="modal-title">{title}</h5>
+                <button
+                    type="button"
+                    className={`close ${buttonCss}`}
+                    onClick={()=>onClickBtn()}
+                >
+                <span aria-hidden="true">&times;</span>
+                </button>
+        </div>
+    )
+}
+
+const ModelBody=({    
+    elementCss="",
+    children=null
+})=>{
+    return(
+        <div className={`modal-body ${elementCss}`}>
+            {children}
+        </div>
+    )
+}
+
+const ModelFooter=({    
+    elementCss="",
+    children=null
+})=>{
+    return(
+        <div className={`modal-footer ${elementCss}`}>
+            {children}
+        </div>
+    )
+}
+
+const ModelWrapper=({
+    modelType="lg",
+    children=null,
+    displayStatus=false
+})=>{
+    return(
+        <div className={`modal fade bd-example-modal-${modelType} ${displayStatus?" show":""}`}>
+          <div className={`modal-dialog modal-${modelType} `}>
+            <div className="modal-content">
+                {children}
+            </div>
+          </div>
+        </div>
+    );
+}
+
 
 export {
     Breadcrumb,
-    PageFullLoader
+    PageFullLoader,
+    ModelHeader,
+    ModelBody,
+    ModelFooter,
+    ModelWrapper
 }

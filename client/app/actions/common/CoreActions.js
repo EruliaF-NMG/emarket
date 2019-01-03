@@ -1,8 +1,8 @@
 import {
     setInputValueKEY,setFormErrorsKEY,unSetFormErrorsKEY,
-    setDBStatusKEY,setApiDataToStoreKey
+    setDBStatusKEY,setApiDataToStoreKey,setBulkInputValuesKEY
 } from '../../config/StateKeys';
-
+import CallApi from "../../helpers/common/CallApi";
 import {setPreLoader} from "./CoreUIActions";
 
 /**
@@ -14,6 +14,13 @@ function handleInput(key,value) {
         type: setInputValueKEY,
         payload:value,
         key:key
+    }
+}
+
+function setBulkFormInputs(value) {
+    return {
+        type: setBulkInputValuesKEY,
+        payload:value,
     }
 }
 
@@ -53,6 +60,9 @@ function setDB(api,method="POST",requestBody={},stateKey="createData",responseMe
 
             //set loader
             dispatch(setPreLoader(true));
+            
+            //init store key
+            dispatch(updateAPIStates(null,null,stateKey));
 
             CallApi.call(api,method, true, requestBody)
                 .then(function (response) {
@@ -95,8 +105,9 @@ function setDataToStore(api,storeElementKey,apiMethod="GET",apiBody=null,respons
     return dispatch => {
         try {
 
+            console.log("====");
 
-            dispatch(updateAPIDataToStore(null,storeElementKey));
+            //dispatch(updateAPIDataToStore(null,storeElementKey));
 
             CallApi.call(api, apiMethod, true, apiBody)
                 .then(function (response) {
@@ -136,5 +147,6 @@ export {
     updateAPIStates,
     updateAPIDataToStore,
     setDB,
-    setDataToStore
+    setDataToStore,
+    setBulkFormInputs
 }

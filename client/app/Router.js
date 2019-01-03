@@ -14,7 +14,7 @@ class Router extends Component {
       <BrowserRouter>
         <Switch>
           <Route path="/" exact component={Authorized(Home)} />
-          <Route path="/profile" exact component={Authorized(Profile)} />
+          <Route path="/profile/:userID?" exact component={Authorized(Profile)} />
           <Route path="/login" exact component={Guest(Auth)} />
           <Route path="/register" exact component={Guest(Auth)} />
         </Switch>        

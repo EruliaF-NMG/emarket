@@ -4,7 +4,7 @@
   const baseUrl=`http://localhost:${port}/`;
   const mongoDBUrl= 'mongodb://localhost:27017/emarket';
   const apiVersion="api/v2.2/";
-  const tokenLife=3600;
+  const tokenLife=360000;
  
 
   export {

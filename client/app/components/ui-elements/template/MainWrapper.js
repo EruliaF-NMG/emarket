@@ -10,13 +10,14 @@ import * as CoreUIActions from "../../../actions/common/CoreUIActions";
 class MainWrapper extends Component {
 
     render() {
-        let {preLoaderStatus} = this.props;
+        let {preLoaderStatus,modelStatus} = this.props;
         return (
             <div className="div100">
                 <div className="container">
                 <Header/>
                 {this.props.children}
                 </div>
+                
                 <PageFullLoader status={preLoaderStatus}/>
             </div>
         );

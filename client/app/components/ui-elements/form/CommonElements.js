@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from "react-router-dom"
 
 const emptyFun = () => undefined;
 
@@ -52,6 +53,55 @@ const InputBox = ({
     )
 }
 
+const InputTextArea = ({
+    wrapperCss="div100",
+    inputID="",
+    inputDisplayName="",
+    inputName="",
+    inputPlaceholder="",
+    inputCss="",
+    inputType="",
+    inputValue="",
+    onChangeTxt=emptyFun,
+    errorTxt=""
+}) => {
+    return (
+            <DefaultFormWRapper
+                wrapperCss={wrapperCss}
+                inputID={inputID}
+                inputDisplayName={inputDisplayName}
+                errorTxt={errorTxt}
+            >
+              <textarea 
+                type={inputType} 
+                className={`form-control div100 ${inputCss}`} 
+                name={inputName} 
+                id={inputID} 
+                value={inputValue}
+                placeholder={inputPlaceholder} 
+                onChange={(event)=>onChangeTxt({name:event.target.name,value:event.target.value,event:event})}
+              >
+              {inputValue}
+              </textarea>
+            </DefaultFormWRapper>        
+            
+    )
+}
+
+const HtmlButton=({
+    buttonCss="btn-primary btn-sm",
+    buttonTxt="",
+    onClickBtn=emptyFun,
+})=>{
+    return(
+        <button 
+            type="button" 
+            className={`btn ${buttonCss}`} 
+            onClick={(event)=>onClickBtn(event)}>{buttonTxt}
+        </button>
+    )
+}
+
 const Button=({
     wrapperCss="div100",
     buttonCss="btn-primary btn-sm",
@@ -60,13 +110,32 @@ const Button=({
 })=>{
     return(
         <div className={wrapperCss}>
-         <button 
-            type="button" 
-            className={`btn ${buttonCss}`} 
-            onClick={(event)=>onClickBtn(event)}>{buttonTxt}</button>
+         <HtmlButton
+            buttonCss={buttonCss}
+            buttonTxt={buttonTxt}
+            onClickBtn={onClickBtn}
+         />
         </div>       
     );
 }
+
+const LinkButton=({
+    wrapperCss="div100",
+    buttonCss="btn-primary btn-sm",
+    buttonTxt="",
+    url=""
+})=>{
+    return(
+        <Link className={wrapperCss} to={url}>
+            <HtmlButton
+                buttonCss={buttonCss}
+                buttonTxt={buttonTxt}
+            />
+        </Link>       
+    );
+}
+
+
 
 const CheckBox = ({
     inputwrapperCss="div100",
@@ -100,5 +169,8 @@ export {
     DefaultFormWRapper,
     InputBox,
     Button,
-    CheckBox
+    CheckBox,
+    HtmlButton,
+    LinkButton,
+    InputTextArea
 }

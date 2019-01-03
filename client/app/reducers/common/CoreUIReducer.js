@@ -1,9 +1,15 @@
 import {
-preLoaderKey
+preLoaderKey,manageModelKEY
 } from "../../config/StateKeys"
 
+
+
 const initState = {    
-    preLoaderStatus:false
+    preLoaderStatus:false,
+    modelStatus:{
+        status:false,
+        modelType:"lg"
+    }
 }
 
 export default function coreUIReducer(state = initState, action) {
@@ -13,7 +19,16 @@ export default function coreUIReducer(state = initState, action) {
                 ...state,
                 preLoaderStatus: action.payload,
             };
-            break;        
+            break;  
+        case manageModelKEY: 
+            return {
+                ...state,
+                modelStatus: {
+                    status:!state.modelStatus.status,
+                    modelType:action.modelType
+                }
+            };
+            break;            
         default:
             return state
     }

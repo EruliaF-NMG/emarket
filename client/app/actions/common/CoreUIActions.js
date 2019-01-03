@@ -1,5 +1,5 @@
 import {   
-    preLoaderKey
+    preLoaderKey,manageModelKEY
 } from '../../config/StateKeys';
 
 
@@ -10,6 +10,14 @@ function setPreLoader(status) {
     }
 }
 
+function manageModel(modelType="lg"){
+    return {
+        type: manageModelKEY,
+        modelType:modelType
+    }
+}
+
 export {
-    setPreLoader
+    setPreLoader,
+    manageModel
 }
