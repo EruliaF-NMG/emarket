@@ -73,9 +73,11 @@ const MyShops = () => {
 const EditProfileModel=({
     displayStatus=false,
     onCloseBtn=emptyFun,
+    onSaveBtn=emptyFun,
     handleInput=emptyFun,
     formData={},
     errorList={},
+    currentUserID=null
 })=>{
     return (
         <ModelWrapper
@@ -152,7 +154,7 @@ const EditProfileModel=({
                 <HtmlButton
                     buttonCss={"btn-sm btn-primary"}
                     buttonTxt={"Save changes"}
-                    onClickBtn={() => onCloseBtn()}
+                    onClickBtn={() => onSaveBtn(formData,currentUserID)}
                 />
             </ModelFooter>
         </ModelWrapper>

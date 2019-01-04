@@ -1,6 +1,7 @@
 import {
     setInputValueKEY,setFormErrorsKEY,unSetFormErrorsKEY,
-    setDBStatusKEY,setApiDataToStoreKey,setBulkInputValuesKEY
+    setDBStatusKEY,setApiDataToStoreKey,setBulkInputValuesKEY,
+    unSetFormInputsKEY,unSetAPIReturnsKEY
 } from '../../config/StateKeys';
 import CallApi from "../../helpers/common/CallApi";
 import {setPreLoader} from "./CoreUIActions";
@@ -34,6 +35,19 @@ function setInputErrors(value) {
 function unsetInputErrors() {
     return {
         type: unSetFormErrorsKEY
+    }
+}
+
+function unsetInputs() {
+    return {
+        type: unSetFormInputsKEY
+    }
+}
+
+function unsetAPIReturnsBYKey(key) {
+    return {
+        type: unSetAPIReturnsKEY,
+        payload:key
     }
 }
 
@@ -148,5 +162,7 @@ export {
     updateAPIDataToStore,
     setDB,
     setDataToStore,
-    setBulkFormInputs
+    setBulkFormInputs,
+    unsetInputs,
+    unsetAPIReturnsBYKey
 }

@@ -20,6 +20,15 @@ class Profile extends Component {
     profileActions.initProfileUI(this.userID);
   }
 
+  componentWillReceiveProps(nextProps,nextState){
+   let {setAPIReturnStatus,profileActions} =this.props;
+
+   if(nextProps.setAPIReturnStatus.editUserInfo==true){
+    profileActions.updateSucess(nextProps.setAPIReturnContent.editUserInfo);
+   }
+
+  }
+
   render() {
     let {
       uiChangeStatus, coreData,profileActions,
@@ -43,13 +52,13 @@ class Profile extends Component {
         <EditProfileModel
           displayStatus={modelStatus.status}
           onCloseBtn={profileActions.manageProfileEditModel}
+          onSaveBtn={profileActions.editProfileInfo}
           handleInput={coreActions.handleInput}
           formData={formData}
           errorList={errorList}
+          currentUserID={this.userID}
         />
 
-
-        
       </MainWrapper>
     );
   }
@@ -63,6 +72,8 @@ function mapStateToProps(state) {
     uiChangeStatus: state.coreReducer.apiDataList.uiUpdateStatus,
     formData: state.coreReducer.formData,     
     errorList: state.coreReducer.errorList,   
+    setAPIReturnStatus: state.coreReducer.setAPIReturnStatus, 
+    setAPIReturnContent: state.coreReducer.setAPIReturnContent   
   };
 }
 

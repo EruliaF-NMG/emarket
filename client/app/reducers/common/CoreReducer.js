@@ -2,12 +2,13 @@
  * @Author: Nisal Madusanka(EruliaF) 
  * @Date: 2018-12-30 09:54:32 
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2018-12-30 18:13:07
+ * @Last Modified time: 2019-01-03 20:13:15
  */
 
 import {
 setInputValueKEY,setFormErrorsKEY,unSetFormErrorsKEY,
-setApiDataToStoreKey,setDBStatusKEY,setBulkInputValuesKEY
+setApiDataToStoreKey,setDBStatusKEY,setBulkInputValuesKEY,
+unSetFormInputsKEY,unSetAPIReturnsKEY
 } from "../../config/StateKeys"
 
 const initState = {    
@@ -56,6 +57,12 @@ export default function coreReducer(state = initState, action) {
                 errorList: initState.errorList,
             };
             break;
+        // unset all form inputs
+        case unSetFormInputsKEY:
+            return{
+                ...state,
+                formData:{}
+            }    
         //update user request data by apis    
         case setApiDataToStoreKey:
             return {
@@ -81,7 +88,22 @@ export default function coreReducer(state = initState, action) {
                     contentUpdateStatus:!state.setAPIReturnContent.contentUpdateStatus
                 }
             }
-            break;               
+            break;
+        //unset api returns
+        case unSetAPIReturnsKEY:
+            return{
+                ...state,
+                setAPIReturnStatus:{
+                    ...state.setAPIReturnStatus,
+                    [action.payload]:null,
+                },
+                setAPIReturnContent:{
+                    ...state.setAPIReturnContent,
+                    [action.payload]:null,
+                    contentUpdateStatus:!state.setAPIReturnContent.contentUpdateStatus
+                }
+            }
+            break;                   
         default:
             return state
     }
