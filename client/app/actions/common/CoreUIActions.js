@@ -10,10 +10,11 @@ function setPreLoader(status) {
     }
 }
 
-function manageModel(modelType="lg"){
+function manageModel(key,modelType="lg"){
     return {
         type: manageModelKEY,
-        modelType:modelType
+        modelType:modelType,
+        payload:key
     }
 }
 

@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import {Button,HtmlButton,InputBox,InputTextArea} from "../../../ui-elements/form/CommonElements"
+import {Button,HtmlButton,InputBox,InputTextArea,FileInput} from "../../../ui-elements/form/CommonElements"
 import {ModelHeader,ModelBody,ModelFooter,ModelWrapper} from "../../../ui-elements/common-elements/CommonElements"
 import {getValue} from "../../../../helpers/common/CommonMethods";
+import {getProfileImageIDAPI,getShopLogoByIDApi} from "../../../../config/APIEndPoints"
 
 
 const emptyFun = () => undefined;
@@ -17,7 +18,7 @@ const ProfileInfo = ({
                     <div className="row">
                         <div className="media div100">
                             <img
-                                src="https://www.gstatic.com/webp/gallery/1.jpg"
+                                src={getProfileImageIDAPI+getValue(info,'_id')+"?"+getValue(info,'updated',new Date().getTime())}
                                 className="align-self-start mr-3 proImage"
                             />
                             <div className="media-body div100">
@@ -42,27 +43,50 @@ const ProfileInfo = ({
   )
 };
 
-const MyShops = () => {
+const MyShops = ({
+    manageCreateModel=emptyFun,
+    list=[]
+}) => {
   return (
         <div className="col-md-6 col-sm-12 divLeft">
             <div className="card div100 divLeft">
-                <h5 className="card-header">My Shops</h5>
+
+                <div className="div100 divLeft card-header">
+                    <div className="col-md-6 divLeft">
+                    <h5 className="">My Shops </h5>
+                    </div>
+                    <div className="col-md-6 divLeft">
+                                <Button
+                                    wrapperCss={"div100"}
+                                    buttonCss={"btn-primary btn-sm float-right"}
+                                    buttonTxt="Add Shop"
+                                    onClickBtn={()=>manageCreateModel()}
+                                />
+                    </div>
+                </div>                
+                
                 <div className="card-body">
                 <div className="row">
-                    <div className="col-md-6 divLeft">
-                    <div className="card div100">
-                        <img
-                        src="https://www.gstatic.com/webp/gallery/1.jpg"
-                        className="card-img-top"
-                        />
-                        <div className="card-body">
-                        <h5 className="card-title">Card title</h5>
-                        </div>
-                        <div className="card-footer">
-                        <small className="text-muted">Last updated 3 mins ago</small>
-                        </div>
-                    </div>
-                    </div>
+                   {
+                       list.map(function(shop, key){
+                        return(
+                                <div className="col-md-6 divLeft" key={key}>
+                                    <div className="card div100">
+                                        <img
+                                        src={getShopLogoByIDApi+getValue(shop,"_id",null)+"?"+getValue(shop,'updated',new Date().getTime())}
+                                        className="card-img-top"
+                                        />
+                                        <div className="card-body">
+                                        <h5 className="card-title">{shop.name}</h5>
+                                        </div>
+                                        <div className="card-footer">
+                                        <small className="text-muted">Last updated 3 mins ago</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            )
+                        })
+                   }
                 </div>
                 </div>
             </div>
@@ -79,6 +103,9 @@ const EditProfileModel=({
     errorList={},
     currentUserID=null
 })=>{
+
+  
+
     return (
         <ModelWrapper
             displayStatus={displayStatus}
@@ -142,6 +169,14 @@ const EditProfileModel=({
                         onChangeTxt={(eventData)=>handleInput(eventData.name,eventData.value)}
                         inputType="text"
                         errorTxt={errorList.contact}
+                    />
+                    <FileInput
+                        inputID="proPic"
+                        inputDisplayName="Profile Image"
+                        inputName="proPic"
+                        inputValue={formData.proPic}
+                        onChangeTxt={(eventData)=>handleInput(eventData.name,eventData.value)}
+                        errorTxt={errorList.proPic}
                     />
                 </div>
             </ModelBody>

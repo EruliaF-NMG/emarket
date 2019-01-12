@@ -5,7 +5,9 @@ import { bindActionCreators } from "redux";
 import MainWrapper from "../../ui-elements/template/MainWrapper";
 import { Breadcrumb } from "../../ui-elements/common-elements/CommonElements";
 import { ProfileInfo, MyShops,EditProfileModel } from "./includes/CommonElements";
+import { CreateShopModel } from "../shop/includes/CommonElements"
 import * as ProfileActions from "../../../actions/profile/ProfileActions";
+import * as ShopActions from "../../../actions/shop/ShopActions";
 import * as CoreActions from "../../../actions/common/CoreActions";
 
 class Profile extends Component {
@@ -21,10 +23,14 @@ class Profile extends Component {
   }
 
   componentWillReceiveProps(nextProps,nextState){
-   let {setAPIReturnStatus,profileActions} =this.props;
+   let {setAPIReturnStatus,profileActions,shopActions,coreData} =this.props;
 
    if(nextProps.setAPIReturnStatus.editUserInfo==true){
     profileActions.updateSucess(nextProps.setAPIReturnContent.editUserInfo);
+   }
+
+   if(nextProps.setAPIReturnStatus.createNewShop==true){
+    shopActions.createSucess(nextProps.setAPIReturnContent.createNewShop,coreData.shopList);
    }
 
   }
@@ -32,7 +38,8 @@ class Profile extends Component {
   render() {
     let {
       uiChangeStatus, coreData,profileActions,
-      modelStatus,formData,errorList,coreActions
+      modelStatus,formData,errorList,coreActions,
+      shopActions
     } = this.props;
     return (
       <MainWrapper>
@@ -46,17 +53,29 @@ class Profile extends Component {
             info={coreData.profileData}
             manageEditModel={()=>profileActions.manageProfileEditModel(coreData.profileData)}
           />
-          <MyShops />
+          <MyShops 
+           manageCreateModel={()=>shopActions.manageCreateModel()}
+           list={coreData.shopList||[]}
+          />
         </div>
 
         <EditProfileModel
-          displayStatus={modelStatus.status}
+          displayStatus={modelStatus.status.editModel||false}
           onCloseBtn={profileActions.manageProfileEditModel}
           onSaveBtn={profileActions.editProfileInfo}
           handleInput={coreActions.handleInput}
           formData={formData}
           errorList={errorList}
           currentUserID={this.userID}
+        />
+
+        <CreateShopModel
+          displayStatus={modelStatus.status.createShopModel||false}
+          onCloseBtn={shopActions.manageCreateModel}
+          onSaveBtn={()=>shopActions.createNewShop(formData,this.userID)}
+          handleInput={coreActions.handleInput}
+          formData={formData}
+          errorList={errorList}
         />
 
       </MainWrapper>
@@ -81,6 +100,7 @@ function mapDispatchToProps(dispatch) {
   return {
     profileActions: bindActionCreators(ProfileActions, dispatch),
     coreActions: bindActionCreators(CoreActions, dispatch),   
+    shopActions: bindActionCreators(ShopActions, dispatch)
   };
 }
 

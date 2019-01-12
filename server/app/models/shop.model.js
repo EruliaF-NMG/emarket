@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 
-const shop=new mongoose.Schema({
+const shopSchema=new mongoose.Schema({
     name:{
         type:String,
         trim:true
@@ -10,9 +10,17 @@ const shop=new mongoose.Schema({
         type:String,
         trim:true
     },
-    logo:{
-        data:Buffer,
-        contentType:String
+    address:{
+        type:String,
+        trim:true
+    },
+    contact: {
+        type: String,
+        trim: true
+    },
+    owner: {
+        type: mongoose.Schema.ObjectId, 
+        ref: 'User'
     },
     updated: Date,
     created: {
@@ -20,3 +28,6 @@ const shop=new mongoose.Schema({
         default: Date.now
     }
 });
+
+
+export default mongoose.model('Shop', shopSchema)

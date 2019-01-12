@@ -1,4 +1,5 @@
 import express from 'express';
+
 import authCtrl from '../http/controllers/auth.controller';
 import oauth2 from "../helpers/auth/oauth2";
 import {validateRegister,validateLogin} from "../http/requests/auth/authRequest";

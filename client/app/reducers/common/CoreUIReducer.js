@@ -7,7 +7,7 @@ preLoaderKey,manageModelKEY
 const initState = {    
     preLoaderStatus:false,
     modelStatus:{
-        status:false,
+        status:{},
         modelType:"lg"
     }
 }
@@ -24,8 +24,11 @@ export default function coreUIReducer(state = initState, action) {
             return {
                 ...state,
                 modelStatus: {
-                    status:!state.modelStatus.status,
-                    modelType:action.modelType
+                    modelType:action.modelType,
+                    status:{
+                        ...state.modelStatus.status,
+                        [action.payload]:!((state.modelStatus.status[action.payload])?true:false)
+                    }
                 }
             };
             break;            

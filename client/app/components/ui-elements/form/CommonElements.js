@@ -1,5 +1,6 @@
 import React from 'react';
-import {Link} from "react-router-dom"
+import {Link} from "react-router-dom";
+import {getValue} from "../../../helpers/common/CommonMethods";
 
 const emptyFun = () => undefined;
 
@@ -47,6 +48,37 @@ const InputBox = ({
                 value={inputValue}
                 placeholder={inputPlaceholder} 
                 onChange={(event)=>onChangeTxt({name:event.target.name,value:event.target.value,event:event})}
+              />
+            </DefaultFormWRapper>        
+            
+    )
+}
+
+
+const FileInput = ({
+    wrapperCss="div100",
+    inputID="",
+    inputDisplayName="",
+    inputName="",
+    inputPlaceholder="",
+    inputCss="",
+    inputValue="",
+    onChangeTxt=emptyFun,
+    errorTxt=""
+}) => {
+    return (
+            <DefaultFormWRapper
+                wrapperCss={wrapperCss}
+                inputID={inputID}
+                inputDisplayName={inputDisplayName}
+                errorTxt={errorTxt}
+            >
+              <input 
+                type={"file"} 
+                className={`form-control div100 ${inputCss}`} 
+                name={inputName} 
+                id={inputID} 
+                onChange={(event)=>onChangeTxt({name:event.target.name,value:event.target.files[0],event:event})}
               />
             </DefaultFormWRapper>        
             
@@ -172,5 +204,6 @@ export {
     CheckBox,
     HtmlButton,
     LinkButton,
-    InputTextArea
+    InputTextArea,
+    FileInput
 }
