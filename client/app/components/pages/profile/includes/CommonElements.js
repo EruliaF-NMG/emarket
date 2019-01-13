@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import {Link} from "react-router-dom";
+
 import {Button,HtmlButton,InputBox,InputTextArea,FileInput} from "../../../ui-elements/form/CommonElements"
 import {ModelHeader,ModelBody,ModelFooter,ModelWrapper} from "../../../ui-elements/common-elements/CommonElements"
 import {getValue} from "../../../../helpers/common/CommonMethods";
@@ -9,11 +11,20 @@ const emptyFun = () => undefined;
 
 const ProfileInfo = ({
     info={},
-    manageEditModel=emptyFun
+    manageEditModel=emptyFun,
+    type="profile"
 }) => {
   return (
         <div className="col-md-6 col-sm-12 divLeft">
             <div className="card col-md-12 divLeft">
+            {(type!="profile")?
+                (
+                <div className="row">
+                    <h5 className="card-header div100 divLeft">Shop Owner </h5>
+                </div>
+                ):(null)
+            }
+
                 <div className="card-body">
                     <div className="row">
                         <div className="media div100">
@@ -27,13 +38,25 @@ const ProfileInfo = ({
                                 <p>Address :- {getValue(info,'profile.address')}</p>
                                 <p>Contact :- {getValue(info,'profile.contact')}</p>
                                 <p>About :- {getValue(info,'profile.about')}</p>
-
-                                <Button
-                                    wrapperCss={"mt-3 div100"}
-                                    buttonCss={"btn-primary btn-sm float-right"}
-                                    buttonTxt="Edit Profile"
-                                    onClickBtn={()=>manageEditModel()}
-                                />
+                                {
+                                    (type=="profile")?(
+                                        <Button
+                                            wrapperCss={"mt-3 div100"}
+                                            buttonCss={"btn-primary btn-sm float-right"}
+                                            buttonTxt="Edit Profile"
+                                            onClickBtn={()=>manageEditModel()}
+                                        />
+                                    ):(
+                                        <Link to={"/profile/"+getValue(info,'_id')}>
+                                            <Button
+                                                wrapperCss={"mt-3 div100"}
+                                                buttonCss={"btn-primary btn-sm float-right"}
+                                                buttonTxt="View Profile"
+                                            />
+                                        </Link>                                    
+                                    )
+                                }
+                                
                             </div>
                         </div>
                     </div>
@@ -70,7 +93,8 @@ const MyShops = ({
                    {
                        list.map(function(shop, key){
                         return(
-                                <div className="col-md-6 divLeft" key={key}>
+                            <Link to={"/shop/"+getValue(shop,"_id",null)} key={key}>
+                                <div className="col-md-6 divLeft">
                                     <div className="card div100">
                                         <img
                                         src={getShopLogoByIDApi+getValue(shop,"_id",null)+"?"+getValue(shop,'updated',new Date().getTime())}
@@ -84,6 +108,7 @@ const MyShops = ({
                                         </div>
                                     </div>
                                 </div>
+                            </Link>    
                             )
                         })
                    }

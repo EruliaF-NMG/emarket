@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 
-import {HtmlButton,InputBox,InputTextArea,FileInput} from "../../../ui-elements/form/CommonElements"
+import {getValue} from  "../../../../helpers/common/CommonMethods";
+import {getShopLogoByIDApi} from "../../../../config/APIEndPoints";
+import {Button,HtmlButton,InputBox,InputTextArea,FileInput} from "../../../ui-elements/form/CommonElements"
 import {ModelHeader,ModelBody,ModelFooter,ModelWrapper} from "../../../ui-elements/common-elements/CommonElements"
 
 const emptyFun = () => undefined;
@@ -96,7 +98,42 @@ const CreateShopModel=({
     )
 }
 
+const ShopInfo = ({
+    info={},
+    manageEditModel=emptyFun
+}) => {
+  return (
+        <div className="col-md-6 col-sm-12 divLeft">
+            <div className="card col-md-12 divLeft">
+                <div className="card-body">
+                    <div className="row">
+                        <div className="media div100">
+                            <img
+                                src={getShopLogoByIDApi+getValue(info,'_id')+"?"+getValue(info,'updated',new Date().getTime())}
+                                className="align-self-start mr-3 proImage"
+                            />
+                            <div className="media-body div100">
+                                <h5 className="mt-0 proNameh5">{getValue(info, 'name')}</h5>
+                                <p>Address :- {getValue(info, 'address')}</p>
+                                <p>Contact :- {getValue(info, 'contact')}</p>
+                                <p>About :- {getValue(info, 'description')}</p>
+
+                                <Button
+                                    wrapperCss={"mt-3 div100"}
+                                    buttonCss={"btn-primary btn-sm float-right"}
+                                    buttonTxt="Edit Shop"
+                                    onClickBtn={manageEditModel}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+  )
+};
 
 export {
-    CreateShopModel
+    CreateShopModel,
+    ShopInfo
 }

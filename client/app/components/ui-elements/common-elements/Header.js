@@ -1,5 +1,9 @@
 import React, { Component } from "react";
 import { Link } from 'react-router-dom';
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import * as AuthActions from "../../../actions/auth/AuthActions";
+
 
 class Header extends Component {
 
@@ -15,6 +19,8 @@ class Header extends Component {
     render() {
 
         let {mobileMenu,profileMenu} =this.state;
+
+        let {authActions} =this.props;
         
         return (
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -39,7 +45,11 @@ class Header extends Component {
                             <Link to={"/profile"}>
                             <span className="dropdown-item">My Profile</span>                            
                             </Link>
-                            <span className="dropdown-item">Logout</span>
+                            <span 
+                                className="dropdown-item"
+                                onClick={()=>authActions.userLogout()} 
+                            >Logout
+                            </span>
                         </div>
                     </div>
 
@@ -49,4 +59,20 @@ class Header extends Component {
     }
 }
 
-export default Header;
+function mapStateToProps(state) {
+    return {
+      authUser: state.authReducer.authUserProfileInfo,
+    };
+  }
+  
+  function mapDispatchToProps(dispatch) {
+    return {
+        authActions: bindActionCreators(AuthActions, dispatch)
+    };
+  }
+  
+  export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(Header);
+  

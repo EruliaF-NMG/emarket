@@ -1,5 +1,6 @@
 import Validate from "../../helpers/validation/Validate";
 import CallApi from "../../helpers/common/CallApi";
+import {logout} from "../../helpers/common/ManageStorage";
 import {setToLocalStorage} from "../../helpers/common/ManageStorage";
 import {authTokenStorageKey,authUserProfileInfoKey} from "../../config/Core";
 import {loginUserAPI,getUserInfoAPI,createUserAPI} from "../../config/APIEndPoints";
@@ -195,6 +196,12 @@ function setToAuthReducer(key, payload) {
   }
 }
 
+function userLogout(){
+  return dispatch => {
+    logout();
+    dispatch(logoutUser());
+  }
+}
 
 export { 
   registerUser,
@@ -202,5 +209,6 @@ export {
   setCurrentAuthenticationStatus,
   logoutUser,
   getCurrentUserInfo,
-  setToAuthReducer
+  setToAuthReducer,
+  userLogout
 };

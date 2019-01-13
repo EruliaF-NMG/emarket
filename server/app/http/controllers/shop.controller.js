@@ -2,8 +2,10 @@
  * @Author: Nisal Madusanka(EruliaF) 
  * @Date: 2019-01-12 14:05:38 
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2019-01-12 21:38:46
+ * @Last Modified time: 2019-01-13 11:29:31
  */
+
+import fs from "fs"; 
 
 import Shop from "../../models/shop.model";
 import { _sendResponse } from "../../helpers/common/commonMethods";
@@ -17,7 +19,7 @@ import {sendFileToResponce} from "../../helpers/common/grid-fs";
 
 
 const getShopByID = (req, res, next, id) => {
-    Shop.findById(id).populate('owner').exec((error, shop) => {
+    Shop.findById(id).populate('owner',"_id name email profile").exec((error, shop) => {
         if (error) {
             return res
                 .status(exceptionResponse.httpStatus)
@@ -135,7 +137,7 @@ const getShopLogo = (req, res, next) => {
 
 const defaultShopImage = (req, res) => {
     res.header('Content-Type', "image/png");
-    fs.ReadStream("./assets/default-profile-img.png")
+    fs.ReadStream("./assets/default-shop-imh.png")
         .pipe(res)
         .on("error", function (error) {
             return res
