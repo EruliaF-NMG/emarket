@@ -52,6 +52,13 @@ class ViewShop extends Component {
           <ProfileInfo info={getValue(coreData,"shopData.owner",{})} type={"shopView"}/>
         </div>
 
+        <div className="card col-md-12 divLeft">
+          <div className="row">
+            <h5 className="card-header div100 divLeft">Products</h5>
+          </div>
+        <div className="card-body"></div>
+        </div>
+
         <CreateShopModel
           displayStatus={modelStatus.status.editShopModel||false}
           onCloseBtn={shopActions.manageEditModel}

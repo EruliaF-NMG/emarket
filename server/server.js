@@ -9,7 +9,7 @@ mongoose.connect(mongoDBUrl);
 mongoose.connection.on('error', () => {
   throw new Error(`unable to connect to database: ${mongoDBUrl}`)
 });
-mongoose.set('debug', true);
+//mongoose.set('debug', true);
 
 app.listen(port, (err) => {
   if (err) {

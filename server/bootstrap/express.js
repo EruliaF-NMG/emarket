@@ -5,7 +5,7 @@ import compress from 'compression'
 import cors from 'cors';
 import helmet from 'helmet';
 import passport from "passport";
-//import multer from "multer";
+import morgan from "morgan";
 
 import devBundle from './devBundle';
 import template from '../../template';
@@ -28,6 +28,8 @@ app.use(compress())
 app.use(helmet())
 // enable CORS - Cross Origin Resource Sharing
 app.use(cors())
+//Loggg Http requests
+app.use(morgan('dev'))
 //passport init
 app.use(passport.initialize());
 

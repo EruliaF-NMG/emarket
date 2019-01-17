@@ -109,7 +109,7 @@ const ShopInfo = ({
                     <div className="row">
                         <div className="media div100">
                             <img
-                                src={getShopLogoByIDApi+getValue(info,'_id')+"?"+getValue(info,'updated',new Date().getTime())}
+                                src={getShopLogoByIDApi+getValue(info,'_id')+"?"+getValue(info,'updated',"image")}
                                 className="align-self-start mr-3 proImage"
                             />
                             <div className="media-body div100">

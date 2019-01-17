@@ -36,7 +36,6 @@ export default class Validate {
 
                 for(let formKey in subFormKeys){
                     let validateResult=this.runValidation(formKey,values,rulesKey);
-                    console.log("=========",validateResult,formKey);
                     if (validateResult) {
                         errorList['_status']=true; 
                         errorList[formKey]=validateResult;
