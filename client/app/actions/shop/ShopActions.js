@@ -2,7 +2,7 @@
  * @Author: Nisal Madusanka(EruliaF)
  * @Date: 2019-01-12 18:00:19
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2019-01-13 19:50:40
+ * @Last Modified time: 2019-01-17 17:45:35
  */
 import { manageModel } from "../../actions/common/CoreUIActions";
 import { 
@@ -101,6 +101,13 @@ function editSucess(responce,currentShop){
 }
 
 
+function manageProductCreateModel() {
+  return dispatch => {
+    dispatch(unsetInputs());
+    dispatch(manageModel("createProductModel"));
+  };
+}
+
 
 export {
     manageCreateModel,
@@ -109,5 +116,6 @@ export {
     initViewShopUI,
     manageEditModel,
     editShop,
-    editSucess
+    editSucess,
+    manageProductCreateModel
 }

@@ -4,11 +4,13 @@ import { bindActionCreators } from "redux";
 
 import MainWrapper from "../../ui-elements/template/MainWrapper";
 import { Breadcrumb } from "../../ui-elements/common-elements/CommonElements";
-import { ShopInfo,CreateShopModel } from "./includes/CommonElements";
+import { ShopInfo,CreateShopModel,ProductList } from "./includes/CommonElements";
+import {CreateProductModel} from "../products/includes/CommonElements";
 import { ProfileInfo } from "../profile/includes/CommonElements";
 import {getValue} from  "../../../helpers/common/CommonMethods";
 import * as ShopActions from "../../../actions/shop/ShopActions";
 import * as CoreActions from "../../../actions/common/CoreActions";
+import * as ProductsActions from "../../../actions/products/ProductsActions";
 
 class ViewShop extends Component {
   constructor() {
@@ -34,7 +36,7 @@ class ViewShop extends Component {
   render() {
       let {
         coreData,shopActions,modelStatus,
-        formData,errorList,coreActions
+        formData,errorList,coreActions,productActions
       } =this.props;
     return (
       <MainWrapper>
@@ -49,16 +51,17 @@ class ViewShop extends Component {
             manageEditModel={()=>shopActions.manageEditModel(getValue(coreData,"shopData",{}))}
           />
           
-          <ProfileInfo info={getValue(coreData,"shopData.owner",{})} type={"shopView"}/>
+          <ProfileInfo 
+            info={getValue(coreData,"shopData.owner",{})} 
+            type={"shopView"}
+          />
         </div>
 
-        <div className="card col-md-12 divLeft">
-          <div className="row">
-            <h5 className="card-header div100 divLeft">Products</h5>
-          </div>
-        <div className="card-body"></div>
-        </div>
+        <ProductList
+          manageCreateModel={()=>productActions.manageCreateModel()}
+        />
 
+        {/* UI Pop Ups */}
         <CreateShopModel
           displayStatus={modelStatus.status.editShopModel||false}
           onCloseBtn={shopActions.manageEditModel}
@@ -67,6 +70,16 @@ class ViewShop extends Component {
           formData={formData}
           errorList={errorList}
         />
+
+        <CreateProductModel
+          displayStatus={modelStatus.status.createProductModel||false}
+          onCloseBtn={()=>productActions.manageCreateModel()}
+          //onSaveBtn={()=>shopActions.editShop(formData,this.shopID)}
+          handleInput={coreActions.handleInput}
+          formData={formData}
+          errorList={errorList}
+        />
+        {/* UI Pop Ups */}
 
       </MainWrapper>
     );
@@ -89,7 +102,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     coreActions: bindActionCreators(CoreActions, dispatch),
-    shopActions: bindActionCreators(ShopActions, dispatch)
+    shopActions: bindActionCreators(ShopActions, dispatch),
+    productActions: bindActionCreators(ProductsActions, dispatch)
   };
 }
 
