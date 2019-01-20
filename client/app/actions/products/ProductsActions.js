@@ -2,15 +2,16 @@
  * @Author: Nisal Madusanka(EruliaF)
  * @Date: 2019-01-12 18:00:19
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2019-01-19 20:04:38
+ * @Last Modified time: 2019-01-20 21:28:07
  */
 import { manageModel } from "../common/CoreUIActions";
 import { 
-  unsetInputs
+  unsetInputs,setDB,updateAPIDataToStore,
+  unsetAPIReturnsBYKey
 } from "../common/CoreActions";
 import { getValue } from "../../helpers/common/CommonMethods";
 import { 
-  getProfileInfoByIDAPI,editProfileInfoByIDAPI,shopsByUserAPI 
+  createProductAPI
 
 } from "../../config/APIEndPoints";
 
@@ -22,6 +23,7 @@ function manageCreateModel() {
 }
 
 function createProduct(formData,currentShop){
+  
   return dispatch => {
 
     const data = new FormData();
@@ -36,16 +38,27 @@ function createProduct(formData,currentShop){
       for(let i in files){
         data.append('files', files[i]);
       }
-    }
+    }  
 
-   
-
-    dispatch(setDB(editProfileInfoByIDAPI + userID, "PUT",data, "editUserInfo"));
+    dispatch(setDB(createProductAPI + currentShop, "POST",data, "createProduct"));
 
   }
 }
 
+function createSucess(responce,productList){
+  return dispatch => {        
+    productList.push(responce);
+    dispatch(unsetAPIReturnsBYKey("createProduct"));
+    dispatch(updateAPIDataToStore(productList,"productData"));
+    dispatch(manageModel("createProductModel"));
+    dispatch(unsetInputs());
+  }
+}
+
+
+
 export {
     manageCreateModel,
-    createProduct
+    createProduct,
+    createSucess
 }

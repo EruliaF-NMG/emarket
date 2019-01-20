@@ -1,7 +1,8 @@
 import React, { Component } from "react";
+import {Link} from "react-router-dom";
 
 import { getValue } from "../../../../helpers/common/CommonMethods";
-import { getShopLogoByIDApi } from "../../../../config/APIEndPoints";
+import { getShopLogoByIDApi,getProductImageAPI } from "../../../../config/APIEndPoints";
 import {
   Button,
   HtmlButton,
@@ -152,7 +153,7 @@ const ShopInfo = ({ info = {}, manageEditModel = emptyFun }) => {
 };
 
 const ProductList = ({ 
-info = {},
+info = [],
 manageCreateModel=emptyFun
 }) => {
   return (
@@ -173,11 +174,36 @@ manageCreateModel=emptyFun
         </div>
 
       </div>
-      <div className="card-body" >
-      
+      <div className="card-body">
+        <div className="row">
+                    {
+                        info.map(function(product,key){                          
+                          return(
+                           
+                              <Link to={"/product/"+getValue(product,"_id",null)} key={key}>
+                                  <div className="col-md-6 divLeft">
+                                      <div className="card div100">
+                                          <img
+                                            src={getProductImageAPI+getValue(product,"gallery.0.fileId",null)}
+                                            className="card-img-top"
+                                          />
+                                          <div className="card-body">
+                                          <h5 className="card-title">{product.name}</h5>
+                                          </div>                                        
+                                      </div>
+                                  </div>
+                              </Link>    
+                          )
+                        })
+                    }
+        </div>
       </div>
     </div>
   );
 };
 
-export { CreateShopModel, ShopInfo, ProductList };
+export { 
+  CreateShopModel,
+  ShopInfo,
+  ProductList 
+};

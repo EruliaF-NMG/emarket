@@ -12,8 +12,13 @@ const productSchema = new mongoose.Schema({
     trim: true
   },
   gallery:[{
-    fileId:  mongoose.Schema.ObjectId,
-    type: String,
+    fileId: {
+      type:mongoose.Schema.ObjectId
+    },
+    type: {
+      type: String,
+      trim: true
+    },
     created: { type: Date, default: Date.now }
   }],
   // category: {

@@ -2,7 +2,7 @@
  * @Author: Nisal Madusanka(EruliaF)
  * @Date: 2019-01-12 18:00:19
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2019-01-19 19:43:18
+ * @Last Modified time: 2019-01-20 19:41:34
  */
 import { manageModel } from "../../actions/common/CoreUIActions";
 import { 
@@ -10,7 +10,10 @@ import {
   unsetAPIReturnsBYKey,setDataToStore,setBulkFormInputs
 } from "../../actions/common/CoreActions";
 import { getValue } from "../../helpers/common/CommonMethods";
-import { createShopAPI,getShopInfoAPI,getEditShopAPI } from "../../config/APIEndPoints";
+import { 
+  createShopAPI,getShopInfoAPI,getEditShopAPI,
+  getProductByShopAPI
+} from "../../config/APIEndPoints";
 
 function manageCreateModel() {
   return dispatch => {
@@ -49,6 +52,7 @@ function createSucess(responce,shopList){
 function initViewShopUI(shopID){
   return dispatch => {      
     dispatch(setDataToStore(getShopInfoAPI + shopID, "shopData", "GET"));
+    dispatch(setDataToStore(getProductByShopAPI + shopID, "productData", "GET"));
   }
 }
 

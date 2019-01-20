@@ -14,6 +14,7 @@ require('../app/helpers/auth/auth');
 import authRoutes from "../app/routes/auth.routes";
 import userRoutes from "../app/routes/user.routes";
 import shopRoutes from "../app/routes/shop.routes";
+import productRoutes from "../app/routes/product.routes";
 
 const CURRENT_WORKING_DIR = process.cwd()
 const app = express()
@@ -39,6 +40,7 @@ app.use('/dist', express.static(path.join(CURRENT_WORKING_DIR, 'dist')))
 app.use('/api',authRoutes)
 app.use('/api',userRoutes)
 app.use('/api',shopRoutes)
+app.use('/api',productRoutes)
 //Front-end
 app.get('*', (req, res) => {
     res.status(200).send(template())

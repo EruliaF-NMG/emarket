@@ -25,10 +25,14 @@ class ViewShop extends Component {
   }
 
   componentWillReceiveProps(nextProps,nextState){
-    let {shopActions,coreData} =this.props;
+    let {shopActions,productActions,coreData} =this.props;
 
     if(nextProps.setAPIReturnStatus.editShop==true){
      shopActions.editSucess(nextProps.setAPIReturnContent.editShop,coreData.shopData);
+    }
+
+    if(nextProps.setAPIReturnStatus.createProduct==true){
+      productActions.createSucess(nextProps.setAPIReturnContent.createProduct,coreData.productData);
     }
  
    }
@@ -58,6 +62,7 @@ class ViewShop extends Component {
         </div>
 
         <ProductList
+          info={getValue(coreData,"productData",[])} 
           manageCreateModel={()=>productActions.manageCreateModel()}
         />
 
