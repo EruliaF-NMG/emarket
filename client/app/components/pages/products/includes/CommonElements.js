@@ -80,7 +80,13 @@ const CreateProductModel = ({
           
         </div>
         <div className="col-md-12 float-left">
-            <AttachFiles/>
+            <AttachFiles
+             inputDisplayName="Product Galary"
+             inputName="galary"
+             inputValue={formData.galary}
+             onChangeFile={handleInput}
+             errorTxt={errorList.galary}
+            />
         </div>
       </ModelBody>
       <ModelFooter>

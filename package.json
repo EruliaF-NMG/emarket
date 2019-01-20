@@ -47,6 +47,7 @@
   },
   "dependencies": {
     "@babel/polyfill": "^7.2.5",
+    "@mdi/font": "^3.3.92",
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
     "compression": "^1.7.3",

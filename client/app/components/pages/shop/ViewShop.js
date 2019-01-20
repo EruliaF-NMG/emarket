@@ -74,7 +74,7 @@ class ViewShop extends Component {
         <CreateProductModel
           displayStatus={modelStatus.status.createProductModel||false}
           onCloseBtn={()=>productActions.manageCreateModel()}
-          //onSaveBtn={()=>shopActions.editShop(formData,this.shopID)}
+          onSaveBtn={()=>productActions.createProduct(formData,this.shopID)}
           handleInput={coreActions.handleInput}
           formData={formData}
           errorList={errorList}

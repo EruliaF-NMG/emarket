@@ -2,7 +2,7 @@
  * @Author: Nisal Madusanka(EruliaF)
  * @Date: 2019-01-12 18:00:19
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2019-01-17 17:45:35
+ * @Last Modified time: 2019-01-19 19:43:18
  */
 import { manageModel } from "../../actions/common/CoreUIActions";
 import { 
@@ -107,6 +107,8 @@ function manageProductCreateModel() {
     dispatch(manageModel("createProductModel"));
   };
 }
+
+
 
 
 export {

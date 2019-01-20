@@ -2,7 +2,7 @@
  * @Author: Nisal Madusanka(EruliaF) 
  * @Date: 2018-12-28 20:29:38 
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2019-01-13 19:44:03
+ * @Last Modified time: 2019-01-19 20:05:14
  */
 import {apiUrl} from "./Core";
 
@@ -21,3 +21,6 @@ export const getEditShopAPI=apiUrl+"/shop/";
 export const createShopAPI=apiUrl+"shop-create/";
 export const shopsByUserAPI=apiUrl+"shops-by-user/";
 export const getShopLogoByIDApi=apiUrl+"shop-logo/";
+
+//product
+export const createProductAPI=apiUrl+"/product-create/";
