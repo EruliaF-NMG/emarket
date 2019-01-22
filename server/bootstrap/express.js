@@ -22,7 +22,6 @@ devBundle.compile(app)
 
 // parse body params and attache them to req.body
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded());
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(compress())
 // secure apps by setting various HTTP headers

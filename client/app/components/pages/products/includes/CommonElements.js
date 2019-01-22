@@ -1,6 +1,9 @@
 import React  from "react";
+import {Link} from "react-router-dom"
 
 import AttachFiles from "../../../ui-elements/form/AttachFiles";
+import {getValue} from "../../../../helpers/common/CommonMethods";
+
 import {
   Button,
   HtmlButton,
@@ -14,6 +17,9 @@ import {
   ModelFooter,
   ModelWrapper
 } from "../../../ui-elements/common-elements/CommonElements";
+import {
+  getProductImageAPI
+} from "../../../../config/APIEndPoints";
 
 const emptyFun = () => undefined;
 
@@ -105,6 +111,36 @@ const CreateProductModel = ({
   );
 };
 
+const ProductCard=({
+info=[]
+})=>{
+  return (
+      <div>
+        {
+            info.map(function(product, key) {
+              return (
+                <div className="col-md-3 col-sm-6 divLeft productWrapper" key={key}>
+                  <Link to={"/product/" + getValue(product, "_id", null)}>                
+                      <div className="div100">
+                        <img
+                          src={getProductImageAPI + getValue(product, "gallery.0.fileId", null)}                   
+                          className="product-image"
+                        />
+                        <div className="product-content">
+                          <h5 className="product-title">{product.name}</h5>
+                          <p className="product-price">Rs.{product.price}/=</p>
+                        </div>
+                      </div>                
+                  </Link>
+                </div>
+              );
+            })
+          }
+      </div>
+  );
+}
+
 export {
-    CreateProductModel
+    CreateProductModel,
+    ProductCard
 }

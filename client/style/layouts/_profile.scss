@@ -7,3 +7,32 @@
         margin-bottom: 7px;
     }
 }
+
+
+.productWrapper{   
+    margin-bottom: 15px;
+    .div100{
+        text-align: center;
+        box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19) !important;
+        padding-bottom: 10px;
+
+        .product-image{
+            height: 100px;
+            width: 100%;
+        }
+
+        .product-content{
+            
+            .product-title{
+                margin-top: 10px;
+                font-size: 18px;  
+                color: black;  
+            }
+            .product-price{
+                margin-top: 5px;
+                font-size: 12px;   
+                color: black;
+            }
+        }
+    }
+}

@@ -1,8 +1,8 @@
-import React, { Component } from "react";
-import {Link} from "react-router-dom";
-
+import React from "react";
 import { getValue } from "../../../../helpers/common/CommonMethods";
-import { getShopLogoByIDApi,getProductImageAPI } from "../../../../config/APIEndPoints";
+import {
+  getShopLogoByIDApi
+} from "../../../../config/APIEndPoints";
 import {
   Button,
   HtmlButton,
@@ -16,6 +16,7 @@ import {
   ModelFooter,
   ModelWrapper
 } from "../../../ui-elements/common-elements/CommonElements";
+import { ProductCard} from "../../products/includes/CommonElements";
 
 const emptyFun = () => undefined;
 
@@ -153,17 +154,16 @@ const ShopInfo = ({ info = {}, manageEditModel = emptyFun }) => {
 };
 
 const ProductList = ({ 
-info = [],
-manageCreateModel=emptyFun
+  info = [], 
+  manageCreateModel = emptyFun 
 }) => {
   return (
     <div className="card col-md-12 divLeft mt-3">
       <div className="card-header row">
-        
         <div className="col-md-6 divLeft">
           <h5 className="">Products </h5>
         </div>
-        
+
         <div className="col-md-6 ">
           <Button
             wrapperCss={"div100"}
@@ -172,30 +172,12 @@ manageCreateModel=emptyFun
             onClickBtn={() => manageCreateModel()}
           />
         </div>
-
       </div>
-      <div className="card-body">
+      <div className="col-md-12 pt-4">
         <div className="row">
-                    {
-                        info.map(function(product,key){                          
-                          return(
-                           
-                              <Link to={"/product/"+getValue(product,"_id",null)} key={key}>
-                                  <div className="col-md-6 divLeft">
-                                      <div className="card div100">
-                                          <img
-                                            src={getProductImageAPI+getValue(product,"gallery.0.fileId",null)}
-                                            className="card-img-top"
-                                          />
-                                          <div className="card-body">
-                                          <h5 className="card-title">{product.name}</h5>
-                                          </div>                                        
-                                      </div>
-                                  </div>
-                              </Link>    
-                          )
-                        })
-                    }
+          <ProductCard
+            info={info}
+          />
         </div>
       </div>
     </div>
@@ -203,7 +185,7 @@ manageCreateModel=emptyFun
 };
 
 export { 
-  CreateShopModel,
-  ShopInfo,
+  CreateShopModel, 
+  ShopInfo, 
   ProductList 
 };
