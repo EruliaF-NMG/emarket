@@ -2,17 +2,16 @@
  * @Author: Nisal Madusanka(EruliaF)
  * @Date: 2019-01-12 18:00:19
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2019-01-20 21:28:07
+ * @Last Modified time: 2019-01-24 18:02:43
  */
 import { manageModel } from "../common/CoreUIActions";
 import { 
   unsetInputs,setDB,updateAPIDataToStore,
-  unsetAPIReturnsBYKey
+  unsetAPIReturnsBYKey,setDataToStore
 } from "../common/CoreActions";
 import { getValue } from "../../helpers/common/CommonMethods";
 import { 
-  createProductAPI
-
+  createProductAPI,getProductByIDAPI
 } from "../../config/APIEndPoints";
 
 function manageCreateModel() {
@@ -31,6 +30,7 @@ function createProduct(formData,currentShop){
     data.append('price',getValue(formData, 'price'));
     data.append('quantity',getValue(formData, 'quantity'));
     data.append('description',getValue(formData, 'description'));
+    data.append('category',getValue(formData, 'category'));
 
    
     if(getValue(formData, 'galary.attachFiles',false)){
@@ -55,10 +55,17 @@ function createSucess(responce,productList){
   }
 }
 
+function initProductUI(productID){
+  return dispatch => {      
+    dispatch(setDataToStore(getProductByIDAPI + productID, "currentProduct", "GET"));
+  }
+}
+
 
 
 export {
     manageCreateModel,
     createProduct,
-    createSucess
+    createSucess,
+    initProductUI
 }

@@ -19,9 +19,9 @@ class ViewShop extends Component {
   }
 
   componentDidMount() {
-    let { match,shopActions} = this.props;
+    let { match,shopActions,coreData} = this.props;
     this.shopID = match.params.shopID;
-    shopActions.initViewShopUI(this.shopID);
+    shopActions.initViewShopUI(this.shopID,coreData.categoryList);
   }
 
   componentWillReceiveProps(nextProps,nextState){
@@ -78,6 +78,7 @@ class ViewShop extends Component {
 
         <CreateProductModel
           displayStatus={modelStatus.status.createProductModel||false}
+          categoryList={coreData.categoryList||[]}
           onCloseBtn={()=>productActions.manageCreateModel()}
           onSaveBtn={()=>productActions.createProduct(formData,this.shopID)}
           handleInput={coreActions.handleInput}

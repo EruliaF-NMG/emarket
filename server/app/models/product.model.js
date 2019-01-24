@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
 
 
-
 const productSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -21,10 +20,10 @@ const productSchema = new mongoose.Schema({
     },
     created: { type: Date, default: Date.now }
   }],
-  // category: {
-  //   type: mongoose.Schema.ObjectId,
-  //   ref: "Category"
-  // },
+  category: {
+    type: mongoose.Schema.ObjectId,
+    ref: "Category"
+  },
   quantity: {
     type: Number,
     trim: true

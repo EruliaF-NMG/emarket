@@ -2,7 +2,7 @@
  * @Author: Nisal Madusanka(EruliaF)
  * @Date: 2019-01-12 18:00:19
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2019-01-20 19:41:34
+ * @Last Modified time: 2019-01-24 17:27:47
  */
 import { manageModel } from "../../actions/common/CoreUIActions";
 import { 
@@ -12,7 +12,7 @@ import {
 import { getValue } from "../../helpers/common/CommonMethods";
 import { 
   createShopAPI,getShopInfoAPI,getEditShopAPI,
-  getProductByShopAPI
+  getProductByShopAPI,getCategoryListAPI
 } from "../../config/APIEndPoints";
 
 function manageCreateModel() {
@@ -49,10 +49,13 @@ function createSucess(responce,shopList){
   }
 }
 
-function initViewShopUI(shopID){
+function initViewShopUI(shopID,categoryList){
   return dispatch => {      
     dispatch(setDataToStore(getShopInfoAPI + shopID, "shopData", "GET"));
     dispatch(setDataToStore(getProductByShopAPI + shopID, "productData", "GET"));
+    if(!categoryList){
+      dispatch(setDataToStore(getCategoryListAPI, "categoryList", "GET"));
+    }
   }
 }
 

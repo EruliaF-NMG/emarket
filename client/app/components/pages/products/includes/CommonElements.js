@@ -9,7 +9,7 @@ import {
   HtmlButton,
   InputBox,
   InputTextArea,
-  FileInput
+  SelectBox
 } from "../../../ui-elements/form/CommonElements";
 import {
   ModelHeader,
@@ -29,8 +29,10 @@ const CreateProductModel = ({
   onSaveBtn = emptyFun,
   handleInput = emptyFun,
   formData = {},
-  errorList = {}
+  errorList = {},
+  categoryList=[]
 }) => {
+  
   return (
     <ModelWrapper displayStatus={displayStatus}>
       <ModelHeader
@@ -60,6 +62,15 @@ const CreateProductModel = ({
             onChangeTxt={eventData =>handleInput(eventData.name, eventData.value)}
             inputType="text"
             errorTxt={errorList.description}
+          />
+          <SelectBox
+            inputID="category"
+            inputDisplayName="Category"
+            inputName="category"
+            inputValue={formData.category}
+            onChangeItem={eventData =>handleInput(eventData.name, eventData.value)}
+            errorTxt={errorList.category}
+            itemList={categoryList}
           />
         </div>
         <div className="col-md-6 float-left">
@@ -140,7 +151,41 @@ info=[]
   );
 }
 
+const ProductGallery=({
+  galleryList=[],
+  handleMouseOver=emptyFun,
+  currentImageKey=0
+})=>{
+  return (
+    <div className="div100 galleryWrapper">   
+        <div className="mainImage">
+          <img 
+           src={getProductImageAPI + getValue(galleryList[currentImageKey], "fileId", null)}
+          />
+        </div>
+        <div className="subImagLinkWrapper div100">
+          {
+            (galleryList).map((item,key)=>{
+              return (
+                <div 
+                  className={"col-sm-3 imgLinkSubWrapper "+(currentImageKey==key?"active":"")} 
+                  key={key}
+                >
+                  <img 
+                    src={getProductImageAPI + getValue(item, "fileId", null)}
+                    onMouseEnter={()=>handleMouseOver(key)}
+                  />
+                </div>
+              )
+            })         
+          }
+        </div>
+    </div>
+  );
+}
+
 export {
     CreateProductModel,
-    ProductCard
+    ProductCard,
+    ProductGallery
 }

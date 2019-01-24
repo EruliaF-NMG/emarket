@@ -197,6 +197,53 @@ const CheckBox = ({
 }
 
 
+const SelectBox = ({
+    wrapperCss="div100",
+    inputID="",
+    inputDisplayName="",
+    inputName="",
+    inputPlaceholder="",
+    inputCss="",
+    inputValue="",
+    itemList=[],
+    displayKey="_id",
+    displayInfoKey="name",
+    onChangeItem=emptyFun,
+    errorTxt=""
+}) => {
+    return (
+            <DefaultFormWRapper
+                wrapperCss={wrapperCss}
+                inputID={inputID}
+                inputDisplayName={inputDisplayName}
+                errorTxt={errorTxt}
+            >
+              <select 
+                className={`form-control div100 ${inputCss}`} 
+                name={inputName} 
+                id={inputID} 
+                value={inputValue}
+                onChange={(event)=>onChangeItem({name:event.target.name,value:event.target.value,event:event})}
+              >
+              {
+                  (itemList).map((item,key)=>{
+                    return(
+                    <option 
+                        key={key}
+                        value={item[displayKey]}
+                    >
+                    {item[displayInfoKey]}
+                    </option>
+                    )
+                  })
+              }
+              </select>
+            </DefaultFormWRapper>        
+            
+    )
+}
+
+
 export {
     DefaultFormWRapper,
     InputBox,
@@ -205,5 +252,6 @@ export {
     HtmlButton,
     LinkButton,
     InputTextArea,
-    FileInput
+    FileInput,
+    SelectBox
 }

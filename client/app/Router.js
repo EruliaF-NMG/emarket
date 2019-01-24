@@ -8,6 +8,8 @@ import Home from "./components/pages/home/Home";
 import Auth from "./components/pages/auth/Auth";
 import Profile from "./components/pages/profile/Profile";
 import ViewShop from "./components/pages/shop/ViewShop";
+import ProductInfo from "./components/pages/products/ProductInfo";
+import Category from "./components/pages/category/Category";
 
 class Router extends Component {
   render() {
@@ -20,6 +22,8 @@ class Router extends Component {
           <Route path="/" exact component={Authorized(Home)} />
           <Route path="/profile/:userID?" exact component={Authorized(Profile)} />         
           <Route path="/shop/:shopID" exact component={Authorized(ViewShop)} />
+          <Route path="/product/:productID" exact component={Authorized(ProductInfo)} />
+          <Route path="/category" exact component={Authorized(Category)} />
         </Switch>        
       </BrowserRouter>
     );
