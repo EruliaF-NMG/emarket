@@ -45,7 +45,7 @@ class ViewShop extends Component {
     return (
       <MainWrapper>
         <Breadcrumb>
-          <i urlTo="/Home" displayName="Home" />
+          <i urlTo="/" displayName="Home" />
           <i urlTo={"/shop/"+this.shopID} displayName="Shop" />
         </Breadcrumb>
 

@@ -2,7 +2,7 @@
  * @Author: Nisal Madusanka(EruliaF) 
  * @Date: 2018-12-24 17:19:44 
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2018-12-30 18:02:46
+ * @Last Modified time: 2019-01-27 12:14:32
  */
 
  /*
@@ -119,3 +119,36 @@ p{
 .fade{
     background-color:rgba(0, 0, 0, 0.5);   
 }    
+
+.navbar-brand{
+    padding-top: 0px;
+    padding-bottom: 0px;
+    .siteLogo{
+        height: 40px;
+        width: 100%;
+    }
+}
+
+.nav-link{
+    color: #ffffff;
+    cursor: pointer;
+}
+
+
+.pageContent{
+    margin-bottom: 50px;
+}
+
+.footerDiv{
+    left: 0;
+    bottom: 0;
+    position: fixed;
+    width: 100%;
+    background-color: #343a40; 
+    
+
+    .container{       
+        color: #ffffff;
+        padding: 10px;
+    }
+}

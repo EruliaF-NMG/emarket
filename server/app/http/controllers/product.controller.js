@@ -2,7 +2,7 @@
  * @Author: Nisal Madusanka(EruliaF) 
  * @Date: 2019-01-14 17:02:27 
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2019-01-24 12:42:47
+ * @Last Modified time: 2019-01-25 12:46:38
  */
 
  import mongoose from "mongoose";
@@ -114,8 +114,37 @@ const getProductByID = (req, res,next,id) => {
 
 const getProductInfo =(req, res)=>{
     return res
-    .status(successResponse.httpStatus)
-    .json(_sendResponse(successResponse, req.currentProduct));
+        .status(successResponse.httpStatus)
+        .json(_sendResponse(successResponse, req.currentProduct));
+}
+
+const getSimilarProducts=(req,res)=>{
+    Product.find({ category: req.currentProduct.category })
+    .limit(5)
+    .exec(function (error, products) {
+        if (error) {
+            return res
+                .status(exceptionResponse.httpStatus)
+                .json(_sendResponse(exceptionResponse, error));
+        }
+        return res
+            .status(successResponse.httpStatus)
+            .json(_sendResponse(successResponse, products));
+    });
+}
+
+const getProductAll=(req,res)=>{
+    Product.find({})
+    .exec(function (error, products) {
+        if (error) {
+            return res
+                .status(exceptionResponse.httpStatus)
+                .json(_sendResponse(exceptionResponse, error));
+        }
+        return res
+            .status(successResponse.httpStatus)
+            .json(_sendResponse(successResponse, products));
+    });
 }
 
 
@@ -125,5 +154,7 @@ export default{
     getProductGalary,
     getProductByID,
     getProductInfo,
-    defaultProductImage
+    defaultProductImage,
+    getSimilarProducts,
+    getProductAll
 }

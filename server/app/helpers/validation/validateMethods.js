@@ -1,9 +1,20 @@
-import _ from "lodash";
+/*
+ * @Author: Nisal Madusanka(EruliaF) 
+ * @Date: 2019-01-26 14:46:01 
+ * @Last Modified by: Nisal Madusanka(EruliaF)
+ * @Last Modified time: 2019-01-26 14:56:58
+ */
 
+import {get} from "lodash";
 
+/**
+ * 
+ * @param {*} formValue 
+ * @param {*} key 
+ */
 function formatInput(formValue,key) {
 
-    let value=_.get(formValue, key,"");
+    let value=get(formValue, key,"");
 
     let type = typeof(value);
 
@@ -26,6 +37,8 @@ function formatInput(formValue,key) {
 
 function required(key, values, param, message, filedList) {
     try {
+
+        console.log(key);
        
         let formValue = formatInput(values,key);      
 
@@ -47,9 +60,33 @@ function required(key, values, param, message, filedList) {
 }
 
 
+function required_if(key, values, param, message, filedList){
+    try {
+
+        let mainFild=formatInput(values,param[0]);  
+
+        if(mainFild==param[1]){
+            return required(key,values,[],message,filedList);
+        }
+       
+       
+
+    } catch (ex) {
+        console.log(
+            `----------------Validation Exception At (required_if)-------------------`,
+            `Input Key - ${key}`,
+            `Exception - ${ex}`
+        );
+       
+        return true;
+    }
+}
+
+
 
 
 export {
-    required
+    required,
+    required_if
 }
 

@@ -20,6 +20,12 @@ router.route("/product/:shopID")
 router.route("/product-info/:productID")
     .get(authCtrl.requireSignin,productCtrl.getProductInfo);
 
+router.route("/get-similar/:productID")
+    .get(authCtrl.requireSignin,productCtrl.getSimilarProducts);    
+
+router.route("/product-all")
+    .get(authCtrl.requireSignin,productCtrl.getProductAll);      
+
 router.route("/product-galary/:galaryID")
     .get(productCtrl.getProductGalary,productCtrl.defaultProductImage);
 

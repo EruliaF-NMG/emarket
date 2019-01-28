@@ -1,8 +1,8 @@
-import React  from "react";
-import {Link} from "react-router-dom"
+import React from "react";
+import { Link } from "react-router-dom";
 
 import AttachFiles from "../../../ui-elements/form/AttachFiles";
-import {getValue} from "../../../../helpers/common/CommonMethods";
+import { getValue } from "../../../../helpers/common/CommonMethods";
 
 import {
   Button,
@@ -17,9 +17,7 @@ import {
   ModelFooter,
   ModelWrapper
 } from "../../../ui-elements/common-elements/CommonElements";
-import {
-  getProductImageAPI
-} from "../../../../config/APIEndPoints";
+import { getProductImageAPI } from "../../../../config/APIEndPoints";
 
 const emptyFun = () => undefined;
 
@@ -30,9 +28,8 @@ const CreateProductModel = ({
   handleInput = emptyFun,
   formData = {},
   errorList = {},
-  categoryList=[]
+  categoryList = []
 }) => {
-  
   return (
     <ModelWrapper displayStatus={displayStatus}>
       <ModelHeader
@@ -49,7 +46,9 @@ const CreateProductModel = ({
             inputName="name"
             inputPlaceholder="Enter Product Name"
             inputValue={formData.name}
-            onChangeTxt={eventData =>handleInput(eventData.name, eventData.value)}
+            onChangeTxt={eventData =>
+              handleInput(eventData.name, eventData.value)
+            }
             inputType="text"
             errorTxt={errorList.name}
           />
@@ -59,7 +58,9 @@ const CreateProductModel = ({
             inputName="description"
             inputPlaceholder="Description...."
             inputValue={formData.description}
-            onChangeTxt={eventData =>handleInput(eventData.name, eventData.value)}
+            onChangeTxt={eventData =>
+              handleInput(eventData.name, eventData.value)
+            }
             inputType="text"
             errorTxt={errorList.description}
           />
@@ -68,7 +69,9 @@ const CreateProductModel = ({
             inputDisplayName="Category"
             inputName="category"
             inputValue={formData.category}
-            onChangeItem={eventData =>handleInput(eventData.name, eventData.value)}
+            onChangeItem={eventData =>
+              handleInput(eventData.name, eventData.value)
+            }
             errorTxt={errorList.category}
             itemList={categoryList}
           />
@@ -80,7 +83,9 @@ const CreateProductModel = ({
             inputName="quantity"
             inputPlaceholder="Enter Product quantity"
             inputValue={formData.quantity}
-            onChangeTxt={eventData =>handleInput(eventData.name, eventData.value)}
+            onChangeTxt={eventData =>
+              handleInput(eventData.name, eventData.value)
+            }
             inputType="text"
             errorTxt={errorList.quantity}
           />
@@ -90,20 +95,21 @@ const CreateProductModel = ({
             inputName="price"
             inputPlaceholder="Enter Product price"
             inputValue={formData.price}
-            onChangeTxt={eventData =>handleInput(eventData.name, eventData.value)}
+            onChangeTxt={eventData =>
+              handleInput(eventData.name, eventData.value)
+            }
             inputType="text"
             errorTxt={errorList.price}
           />
-          
         </div>
         <div className="col-md-12 float-left">
-            <AttachFiles
-             inputDisplayName="Product Galary"
-             inputName="galary"
-             inputValue={formData.galary}
-             onChangeFile={handleInput}
-             errorTxt={errorList.galary}
-            />
+          <AttachFiles
+            inputDisplayName="Product Galary"
+            inputName="galary"
+            inputValue={formData.galary}
+            onChangeFile={handleInput}
+            errorTxt={errorList.galary}
+          />
         </div>
       </ModelBody>
       <ModelFooter>
@@ -122,70 +128,83 @@ const CreateProductModel = ({
   );
 };
 
-const ProductCard=({
-info=[]
-})=>{
+const ProductTile = ({
+  product={}
+}) => {
   return (
-      <div>
-        {
-            info.map(function(product, key) {
-              return (
-                <div className="col-md-3 col-sm-6 divLeft productWrapper" key={key}>
-                  <Link to={"/product/" + getValue(product, "_id", null)}>                
-                      <div className="div100">
-                        <img
-                          src={getProductImageAPI + getValue(product, "gallery.0.fileId", null)}                   
-                          className="product-image"
-                        />
-                        <div className="product-content">
-                          <h5 className="product-title">{product.name}</h5>
-                          <p className="product-price">Rs.{product.price}/=</p>
-                        </div>
-                      </div>                
-                  </Link>
-                </div>
-              );
-            })
-          }
+    <Link to={"/product/" + getValue(product, "_id", null)}>
+      <div className="div100 productInfoCard">
+        <img
+          src={getProductImageAPI + getValue(product, "gallery.0.fileId", null)}
+          className="product-image"
+        />
+        <div className="product-content">
+          <h5 className="product-title">{product.name}</h5>
+          <p className="product-price">Rs.{product.price}/=</p>
+        </div>
       </div>
+    </Link>
   );
-}
+};
 
-const ProductGallery=({
-  galleryList=[],
-  handleMouseOver=emptyFun,
-  currentImageKey=0
-})=>{
+const ProductCard = ({ info = [] }) => {
   return (
-    <div className="div100 galleryWrapper">   
-        <div className="mainImage">
-          <img 
-           src={getProductImageAPI + getValue(galleryList[currentImageKey], "fileId", null)}
-          />
-        </div>
-        <div className="subImagLinkWrapper div100">
-          {
-            (galleryList).map((item,key)=>{
-              return (
-                <div 
-                  className={"col-sm-3 imgLinkSubWrapper "+(currentImageKey==key?"active":"")} 
-                  key={key}
-                >
-                  <img 
-                    src={getProductImageAPI + getValue(item, "fileId", null)}
-                    onMouseEnter={()=>handleMouseOver(key)}
-                  />
-                </div>
-              )
-            })         
-          }
-        </div>
+    <div>
+      {info.map(function(product, key) {
+        return (
+          <div className="col-md-3 col-sm-6 divLeft productWrapper" key={key}>
+            <ProductTile
+             product={product}
+            />
+          </div>
+        );
+      })}
     </div>
   );
-}
+};
 
-export {
-    CreateProductModel,
-    ProductCard,
-    ProductGallery
-}
+const ProductGallery = ({
+  galleryList = [],
+  handleMouseOver = emptyFun,
+  currentImageKey = 0
+}) => {
+  return (
+    <div className="div100 galleryWrapper">
+      <div className="mainImage">
+        <img
+          src={
+            getProductImageAPI +
+            getValue(galleryList[currentImageKey], "fileId", null)
+          }
+        />
+      </div>
+      <div className="subImagLinkWrapper div100">
+        {
+          galleryList.map((item, key) => {
+            return (
+              <div
+                className={
+                  "col-sm-3 imgLinkSubWrapper " +
+                  (currentImageKey == key ? "active" : "")
+                }
+                key={key}
+              >
+                <img
+                  src={getProductImageAPI + getValue(item, "fileId", null)}
+                  onMouseEnter={() => handleMouseOver(key)}
+                />
+              </div>
+            );
+          })
+        }
+      </div>
+    </div>
+  );
+};
+
+export { 
+  CreateProductModel,
+  ProductCard,
+  ProductGallery,
+  ProductTile
+};

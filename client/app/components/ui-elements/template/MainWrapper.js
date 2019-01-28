@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 
-import {PageFullLoader} from "../common-elements/CommonElements";
+import {PageFullLoader,PageFooter} from "../common-elements/CommonElements";
 import * as CoreUIActions from "../../../actions/common/CoreUIActions";
 
 class MainWrapper extends Component {
@@ -13,11 +13,11 @@ class MainWrapper extends Component {
         let {preLoaderStatus,modelStatus} = this.props;
         return (
             <div className="div100">
-                <div className="container">
+                <div className="container pageContent">
                 <Header/>
                 {this.props.children}
                 </div>
-                
+                <PageFooter/>
                 <PageFullLoader status={preLoaderStatus}/>
             </div>
         );

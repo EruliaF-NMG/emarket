@@ -62,7 +62,39 @@ const validateLogin = (req, res,next) => {
 }
 
 
+const validateTest = (req, res,next) => {  
+
+    const rules= {
+        'item.*.name':"required",
+    };
+
+    const message={
+        'item.*.name.required':"Please enter the Name.",
+    };
+
+    let validateObj=new Validate(rules,{},message);
+    let errors=validateObj.validateForm(req.body);
+    if (errors._status == true) {
+        //show Form Error   
+        delete errors["_status"];
+        return res
+                .status(formErrorResponse.httpStatus)
+                .json(
+                _sendResponse(formErrorResponse, errors)
+                );
+    }else{
+        return res
+            .status(formErrorResponse.httpStatus)
+            .json(
+            _sendResponse(formErrorResponse, {"yes":"yes"})
+            );
+    } 
+    
+}
+
+
 export {
     validateRegister,
-    validateLogin
+    validateLogin,
+    validateTest
 }

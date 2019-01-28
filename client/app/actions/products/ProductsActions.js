@@ -2,7 +2,7 @@
  * @Author: Nisal Madusanka(EruliaF)
  * @Date: 2019-01-12 18:00:19
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2019-01-24 18:02:43
+ * @Last Modified time: 2019-01-25 12:52:46
  */
 import { manageModel } from "../common/CoreUIActions";
 import { 
@@ -11,7 +11,8 @@ import {
 } from "../common/CoreActions";
 import { getValue } from "../../helpers/common/CommonMethods";
 import { 
-  createProductAPI,getProductByIDAPI
+  createProductAPI,getProductByIDAPI,getSimilarProductsAPI,
+  getAllProductsAPI
 } from "../../config/APIEndPoints";
 
 function manageCreateModel() {
@@ -58,14 +59,21 @@ function createSucess(responce,productList){
 function initProductUI(productID){
   return dispatch => {      
     dispatch(setDataToStore(getProductByIDAPI + productID, "currentProduct", "GET"));
+    dispatch(setDataToStore(getSimilarProductsAPI + productID, "similarProducts", "GET"));
   }
 }
 
+function initHomeUI(){
+  return dispatch => {      
+    dispatch(setDataToStore(getAllProductsAPI, "allProduct", "GET"));
+  }
+}
 
 
 export {
     manageCreateModel,
     createProduct,
     createSucess,
-    initProductUI
+    initProductUI,
+    initHomeUI
 }

@@ -44,8 +44,8 @@ class Profile extends Component {
     return (
       <MainWrapper>
         <Breadcrumb>
-          <i urlTo="/Home" displayName="Home" />
-          <i urlTo="/profile" displayName="Profile" />
+          <i urlTo="/" displayName="Home" />
+          <i urlTo={"/profile/"+this.userID} displayName="Profile" />
         </Breadcrumb>
 
         <div className="row profileWrapper">
@@ -53,6 +53,8 @@ class Profile extends Component {
             info={coreData.profileData}
             manageEditModel={()=>profileActions.manageProfileEditModel(coreData.profileData)}
           />
+          
+         
           <MyShops 
            manageCreateModel={()=>shopActions.manageCreateModel()}
            list={coreData.shopList||[]}

@@ -2,7 +2,7 @@
  * @Author: Nisal Madusanka(EruliaF) 
  * @Date: 2018-12-28 20:29:38 
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2019-01-24 15:59:50
+ * @Last Modified time: 2019-01-25 12:52:04
  */
 import {apiUrl} from "./Core";
 
@@ -27,7 +27,8 @@ export const createProductAPI=apiUrl+"product-create/";
 export const getProductImageAPI=apiUrl+"product-galary/";
 export const getProductByShopAPI=apiUrl+"product/";
 export const getProductByIDAPI=apiUrl+"product-info/";
-
+export const getSimilarProductsAPI=apiUrl+"get-similar/";
+export const getAllProductsAPI=apiUrl+"product-all";
 
 //category
 export const createCategoryAPI=apiUrl+"category/";

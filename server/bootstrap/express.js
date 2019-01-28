@@ -35,6 +35,7 @@ app.use(morgan('dev'))
 app.use(passport.initialize());
 
 app.use('/dist', express.static(path.join(CURRENT_WORKING_DIR, 'dist')))
+app.use('/assets', express.static(path.join(CURRENT_WORKING_DIR, 'public')))
 
 // mount routes
 app.use('/api',authRoutes)

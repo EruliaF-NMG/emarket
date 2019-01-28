@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+
+import {siteLogo} from "../../../config/Assets";
 import { Link } from 'react-router-dom';
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -23,8 +25,10 @@ class Header extends Component {
         let {authActions} =this.props;
         
         return (
-            <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-                <a className="navbar-brand" href="#">Navbar</a>
+            <nav className="navbar navbar-expand-lg navbar-dark bg-dark">               
+                <Link className="navbar-brand" to={"/"}>
+                    <img src={siteLogo} className="siteLogo" />
+                </Link>
                 
                 <button className="navbar-toggler" type="button" onClick={()=>this.setState({mobileMenu:!mobileMenu})} >
                     <span className="navbar-toggler-icon"></span>
@@ -32,9 +36,9 @@ class Header extends Component {
 
                 <div className={`collapse navbar-collapse ${mobileMenu?"show":""}`} id="navbarSupportedContent">
                     <ul className="navbar-nav mr-auto">
-                        <li className="nav-item active">
+                        {/* <li className="nav-item active">
                             <a className="nav-link" href="#">Home <span className="sr-only">(current)</span></a>
-                        </li>                        
+                        </li>                         */}
                     </ul>
 
                     <div className={`form-inline my-2 my-lg-0 dropdown ${profileMenu?"show":""}`}>
