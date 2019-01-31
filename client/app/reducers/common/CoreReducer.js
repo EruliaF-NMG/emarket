@@ -2,13 +2,13 @@
  * @Author: Nisal Madusanka(EruliaF) 
  * @Date: 2018-12-30 09:54:32 
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2019-01-03 20:13:15
+ * @Last Modified time: 2019-01-31 15:37:06
  */
 
 import {
 setInputValueKEY,setFormErrorsKEY,unSetFormErrorsKEY,
 setApiDataToStoreKey,setDBStatusKEY,setBulkInputValuesKEY,
-unSetFormInputsKEY,unSetAPIReturnsKEY
+unSetFormInputsKEY,unSetAPIReturnsKEY,initSocketIOKEY
 } from "../../config/StateKeys"
 
 const initState = {    
@@ -16,7 +16,8 @@ const initState = {
     errorList: {},
     apiDataList: { uiUpdateStatus: false }, 
     setAPIReturnStatus: {},
-    setAPIReturnContent: {contentUpdateStatus: false}   
+    setAPIReturnContent: {contentUpdateStatus: false},
+    socketIOOBj:null   
 }
 
 /**
@@ -103,7 +104,13 @@ export default function coreReducer(state = initState, action) {
                     contentUpdateStatus:!state.setAPIReturnContent.contentUpdateStatus
                 }
             }
-            break;                   
+            break;   
+        case initSocketIOKEY: 
+            return {
+                ...state,
+                socketIOOBj:action.payload,         
+            }
+            break;                     
         default:
             return state
     }

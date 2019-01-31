@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 
 import Authorized from "./components/middlewares/Authorized";
 import Guest from "./components/middlewares/Guest";
@@ -10,8 +12,22 @@ import Profile from "./components/pages/profile/Profile";
 import ViewShop from "./components/pages/shop/ViewShop";
 import ProductInfo from "./components/pages/products/ProductInfo";
 import Category from "./components/pages/category/Category";
+import * as CoreActions from "./actions/common/CoreActions";
+
 
 class Router extends Component {
+
+  constructor() {
+    super();
+  }
+
+  componentWillMount(){
+    let {socketOBj,coreActions}=this.props;
+    if(!socketOBj){
+      coreActions.initWebSocket();
+    }
+  }
+
   render() {
     return (
       <BrowserRouter>
@@ -30,4 +46,19 @@ class Router extends Component {
   }
 }
 
-export default Router;
+function mapStateToProps(state) {
+  return {
+    socketOBj: state.coreReducer.socketIOOBj
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    coreActions: bindActionCreators(CoreActions, dispatch)
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Router);

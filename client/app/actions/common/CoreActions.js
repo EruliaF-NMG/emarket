@@ -1,10 +1,14 @@
+import socketIOClient from 'socket.io-client';
+
 import {
     setInputValueKEY,setFormErrorsKEY,unSetFormErrorsKEY,
     setDBStatusKEY,setApiDataToStoreKey,setBulkInputValuesKEY,
-    unSetFormInputsKEY,unSetAPIReturnsKEY
+    unSetFormInputsKEY,unSetAPIReturnsKEY,initSocketIOKEY
 } from '../../config/StateKeys';
 import CallApi from "../../helpers/common/CallApi";
+import {baseUrl} from "../../config/Core";
 import {setPreLoader} from "./CoreUIActions";
+ 
 
 /**
  * @Author: Nisal Madusanka(EruliaF)
@@ -119,8 +123,6 @@ function setDataToStore(api,storeElementKey,apiMethod="GET",apiBody=null,respons
     return dispatch => {
         try {
 
-            console.log("====");
-
             //dispatch(updateAPIDataToStore(null,storeElementKey));
 
             CallApi.call(api, apiMethod, true, apiBody)
@@ -153,6 +155,14 @@ function setDataToStore(api,storeElementKey,apiMethod="GET",apiBody=null,respons
 
 }
 
+function initWebSocket(socketObj){    
+    const socket = socketIOClient(baseUrl);
+    return {
+        type: initSocketIOKEY,
+        payload:socket
+    }
+}
+
 
 export {
     handleInput,
@@ -164,5 +174,6 @@ export {
     setDataToStore,
     setBulkFormInputs,
     unsetInputs,
-    unsetAPIReturnsBYKey
+    unsetAPIReturnsBYKey,
+    initWebSocket
 }

@@ -30,7 +30,7 @@ app.use(helmet())
 // enable CORS - Cross Origin Resource Sharing
 app.use(cors())
 //Loggg Http requests
-app.use(morgan('dev'))
+//app.use(morgan('dev'))
 //passport init
 app.use(passport.initialize());
 

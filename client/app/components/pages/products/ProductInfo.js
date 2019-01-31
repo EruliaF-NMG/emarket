@@ -7,11 +7,11 @@ import MainWrapper from "../../ui-elements/template/MainWrapper";
 import { Breadcrumb } from "../../ui-elements/common-elements/CommonElements";
 import {ProductGallery,ProductTile} from "./includes/CommonElements";
 import {getValue} from "../../../helpers/common/CommonMethods";
-import {Button,HtmlButton} from "../../ui-elements/form/CommonElements"
+import {Button,HtmlButton} from "../../ui-elements/form/CommonElements";
+import {getShopLogoByIDApi} from "../../../config/APIEndPoints";
 import * as ProductsActions from "../../../actions/products/ProductsActions";
 import * as CoreActions from "../../../actions/common/CoreActions";
-
-
+import * as ChatActions from "../../../actions/common/ChatActions";
 
 class ProductInfo extends Component {
 
@@ -22,6 +22,7 @@ class ProductInfo extends Component {
         this.state={
           currentImageKey:0
         }
+        
     }
 
     componentDidMount() {
@@ -46,7 +47,7 @@ class ProductInfo extends Component {
 
     render() {
 
-      let {coreData} =this.props;
+      let {coreData,chatActions} =this.props;
       let {currentImageKey} =this.state;
 
         return (
@@ -81,6 +82,16 @@ class ProductInfo extends Component {
                       <HtmlButton
                         wrapperCss="float-left"
                         buttonTxt="View Cart"
+                      />
+
+                      <Button
+                          wrapperCss="float-left mr-3"
+                          buttonTxt="Chat with shop owner"
+                          onClickBtn={()=>chatActions.setSubChatReceiverData({
+                            id:getValue(coreData,"currentProduct.shop._id","-"),
+                            imgUrl:getShopLogoByIDApi+getValue(coreData,"currentProduct.shop._id","-"),
+                            name:getValue(coreData,"currentProduct.shop.name","-"),
+                          })}
                       />
 
                      </div>
@@ -121,7 +132,8 @@ function mapStateToProps(state) {
   function mapDispatchToProps(dispatch) {
     return {
       productsActions: bindActionCreators(ProductsActions, dispatch),
-      coreActions: bindActionCreators(CoreActions, dispatch)
+      coreActions: bindActionCreators(CoreActions, dispatch),
+      chatActions: bindActionCreators(ChatActions, dispatch)
     };
   }
   

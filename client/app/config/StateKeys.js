@@ -2,7 +2,7 @@
  * @Author: Nisal Madusanka(EruliaF) 
  * @Date: 2018-12-25 10:56:38 
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2019-01-03 20:11:17
+ * @Last Modified time: 2019-01-31 15:35:40
  */
 
 
@@ -15,12 +15,20 @@ export const setDBStatusKEY="@coreReducer/SET_TO_DB_STATUS";
 export const setApiDataToStoreKey="@coreReducer/SET_API_DATA_TO_STORE";
 export const unSetFormInputsKEY="@coreReducer/UNSET_INPUTS";
 export const unSetAPIReturnsKEY="@coreReducer/UNSET_API_RETURNS";
+//socketIO
+export const initSocketIOKEY="@coreReducer/INIT_SOCKET_IO";
 
 ///coreUIReducer Keys
 export const preLoaderKey="@coreReducer/PAGE_PRE_LOARDER";
-export const manageModelKEY="@coreReducer/SHOW__HIDE_MODEL";
+export const manageModelKEY="@coreReducer/SHOW_HIDE_MODEL";
+//Chat model
+export const toggleSubChatWrapperKEY="@coreUIReducer/TOGGLE_CHAT_WRAPPER";
+export const toggleSubChatBodyKEY="@coreUIReducer/TOGGLE_CHAT_BODY";
+export const setSubchatReceiverKEY="@coreUIReducer/SET_CHAT_RECEIVER";
 
 ///AuthReducer Keys
 export const checkAuthLoginKey="@authReducer/SET_AUTH_DATA";
 export const logoutAuthUserKey="@authReducer/LOGOUT_USER";
-export const setProfileKey="@authReducer/SET_PROFILE_DATA"
+export const setProfileKey="@authReducer/SET_PROFILE_DATA";
+
+
