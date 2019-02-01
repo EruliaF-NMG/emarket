@@ -84,8 +84,11 @@ const PageFooter = ({
   modelInitData={},
   chatActions={},
   currentChatMessage="",
+  messageList=[],
+  authUser={},
   onChat=emptyFun
 }) => {
+ 
   return (
     <div>
       {
@@ -95,6 +98,8 @@ const PageFooter = ({
             chatActions={chatActions}
             currentChatMessage={currentChatMessage}
             onChat={onChat}
+            messageList={messageList}
+            authUser={authUser}
           />
         ):(null)
       }

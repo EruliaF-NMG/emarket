@@ -2,11 +2,12 @@
  * @Author: Nisal Madusanka(EruliaF)
  * @Date: 2019-01-29 17:39:07
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2019-01-31 19:18:37
+ * @Last Modified time: 2019-02-01 16:03:23
  */
 
 import React from "react";
 import {getValue} from "../../../helpers/common/CommonMethods";
+import {getProfileImageIDAPI} from "../../../config/APIEndPoints";
 
 const emptyFun = () => undefined;
 
@@ -42,32 +43,43 @@ const OthersMessage = ({
 };
 
 const OwnMessage = ({ 
-    profileUrl = "", 
     message = "" 
 }) => {
   return (
     <div className="media">
       <div className="media-body chatMessage ownMessage">
         <p>{message}</p>
-      </div>
-      <img src={profileUrl} className="align-self-end ml-3 chatUserPic" />
+      </div>     
     </div>
   );
 };
 
 const ChatMessageBody = ({ 
     chatMessageList = [],
+    authUser={}
 }) => {
   return (
     <div className={"miniChatBody miniChatBodyActive"}>
-      <OthersMessage
-        profileUrl="http://localhost:3000/api/user/profile-image/5c279d36ba65291e40e1ad5a"
-        message="Cras sit amet nibh libero, in gravida nulla. Nulla vel metus"
-      />
-      <OwnMessage
-        profileUrl="http://localhost:3000/api/user/profile-image/5c279d36ba65291e40e1ad5a"
-        message="Cras sit amet nibh libero, in gravida nulla. Nulla vel metus"
-      />
+
+      {
+        (chatMessageList).map((message,key)=>{
+          return(
+              <div key={key}>
+                {
+                  (authUser._id==message.sender_id)?(<OwnMessage
+                    key={key}
+                    message={message.chat}
+                  />):(<OthersMessage
+                    key={key}
+                    profileUrl={getProfileImageIDAPI+message.sender_id}
+                    message={message.chat}
+                  />)
+                }
+              </div>
+          )
+        })
+      }
+     
     </div>
   );
 };
@@ -112,6 +124,7 @@ const SubChatFooter = ({
 const ChatBody =({
   chatMessageList=[],
   currentChatMessage="",
+  authUser={},
   onChangeTxt=emptyFun,
   onChat=emptyFun
 })=>{
@@ -119,6 +132,7 @@ const ChatBody =({
           <div className="miniChatBodyWrapper">
             <ChatMessageBody 
                 chatMessageList={chatMessageList}
+                authUser={authUser}
             />
             <SubChatFooter
               currentChatMessage={currentChatMessage}
@@ -133,7 +147,9 @@ const SubChat = ({
   modelInitData={},
   chatActions={},
   currentChatMessage="",
-  onChat=emptyFun
+  authUser={},
+  onChat=emptyFun,
+  messageList=[]
 }) => {
   return (
     <div className="container chatContainer">
@@ -150,10 +166,11 @@ const SubChat = ({
             (getValue(modelInitData,"minimizeStatus",false)==true)?
             (
               <ChatBody
-                chatMessageList={[]}
+                chatMessageList={messageList}
                 currentChatMessage={currentChatMessage}
                 onChangeTxt={chatActions.getChatMessageInput}
                 onChat={onChat}
+                authUser={authUser}
               />
             )
             :(null)

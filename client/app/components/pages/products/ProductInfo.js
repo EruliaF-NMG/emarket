@@ -47,7 +47,7 @@ class ProductInfo extends Component {
 
     render() {
 
-      let {coreData,chatActions} =this.props;
+      let {coreData,chatActions,authUser} =this.props;
       let {currentImageKey} =this.state;
 
         return (
@@ -87,11 +87,11 @@ class ProductInfo extends Component {
                       <Button
                           wrapperCss="float-left mr-3"
                           buttonTxt="Chat with shop owner"
-                          onClickBtn={()=>chatActions.setSubChatReceiverData({
+                          onClickBtn={()=>chatActions.manageChatPopup({
                             id:getValue(coreData,"currentProduct.shop._id","-"),
                             imgUrl:getShopLogoByIDApi+getValue(coreData,"currentProduct.shop._id","-"),
                             name:getValue(coreData,"currentProduct.shop.name","-"),
-                          })}
+                          },authUser,getValue(coreData,(authUser._id+"_"+getValue(coreData,"currentProduct.shop._id","")),null))}
                       />
 
                      </div>

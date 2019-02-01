@@ -2,7 +2,7 @@
  * @Author: Nisal Madusanka(EruliaF) 
  * @Date: 2018-12-28 20:29:38 
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2019-01-25 12:52:04
+ * @Last Modified time: 2019-02-01 14:07:59
  */
 import {apiUrl} from "./Core";
 
@@ -33,3 +33,6 @@ export const getAllProductsAPI=apiUrl+"product-all";
 //category
 export const createCategoryAPI=apiUrl+"category/";
 export const getCategoryListAPI=apiUrl+"category/";
+
+//Chat
+export const getChatMessageListAPI=apiUrl+"get-message-list/";

@@ -1,10 +1,12 @@
-import app from './bootstrap/express';
-import mongoose from 'mongoose';
 
+import mongoose from 'mongoose';
 import socketIO from "socket.io";
 import http from "http";
 
+import app from './bootstrap/express';
 import {mongoDBUrl,port} from "./config/core";
+import {addChat} from "./app/helpers/common/chatMessage";
+
 
 // Connection URL
 mongoose.Promise = global.Promise;
@@ -19,6 +21,7 @@ const server = http.createServer(app);
 //socket IO
 const io = socketIO(server)
 io.on('connection', socket => {
+    
     console.log('User connected')
     
     socket.on('disconnect', () => {
@@ -26,8 +29,13 @@ io.on('connection', socket => {
     });
 
     socket.on('message', function(msg){
-      console.log('message: ',msg);
-      io.emit('message', msg);
+      addChat(msg,(error,responce)=>{
+        if(!error){
+          io.emit('receive_message', responce);
+          console.log('message',responce);
+        }
+      });
+      //io.emit('receive_message', responce);
     });
 })
 

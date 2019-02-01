@@ -16,6 +16,7 @@ import userRoutes from "../app/routes/user.routes";
 import shopRoutes from "../app/routes/shop.routes";
 import productRoutes from "../app/routes/product.routes";
 import categoryRoutes from "../app/routes/category.routes";
+import chatRoutes from "../app/routes/chat.routers";
 
 const CURRENT_WORKING_DIR = process.cwd()
 const app = express()
@@ -43,6 +44,7 @@ app.use('/api',userRoutes)
 app.use('/api',shopRoutes)
 app.use('/api',productRoutes)
 app.use('/api',categoryRoutes)
+app.use('/api',chatRoutes)
 
 //Front-end
 app.get('*', (req, res) => {

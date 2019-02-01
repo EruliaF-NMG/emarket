@@ -3,6 +3,7 @@ import Header from "../common-elements/Header";
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import {getValue} from "../../../helpers/common/CommonMethods";
 import {PageFullLoader,PageFooter} from "../common-elements/CommonElements";
 import * as CoreUIActions from "../../../actions/common/CoreUIActions";
 import * as ChatActions from "../../../actions/common/ChatActions";
@@ -18,16 +19,18 @@ class MainWrapper extends Component {
             subChatModel,chatActions,formData,
             socketOBj,authUser
         } = this.props;
-        chatActions.onSendFire(type,socketOBj,subChatModel.receiver,authUser,formData.currentChatMessage);
+        chatActions.onSendFire(type,socketOBj,subChatModel.receiver,authUser,formData.currentChatMessage,{sender:"user",receiver:"shop"});
     }
 
     render() {
         let {
             preLoaderStatus,subChatModel,chatActions,
-            formData,socketOBj
+            formData,coreData,authUser,socketOBj
         } = this.props;
 
-        
+        socketOBj.on('receive_message', (msg)=>{
+            chatActions.setChatMessageToStore(msg,coreData[(authUser._id+"_"+subChatModel.receiver.id)],(authUser._id+"_"+subChatModel.receiver.id))
+        });
 
         return (
             <div className="div100">
@@ -40,6 +43,8 @@ class MainWrapper extends Component {
                  chatActions={chatActions}
                  currentChatMessage={formData.currentChatMessage||""}
                  onChat={this.onChatBtn}
+                 messageList={coreData[(authUser._id+"_"+getValue(subChatModel,"receiver.id",""))]}
+                 authUser={authUser}   
                 />
                 <PageFullLoader status={preLoaderStatus}/>
             </div>
@@ -49,11 +54,13 @@ class MainWrapper extends Component {
 
 function mapStateToProps(state) {
     return {
+        authUser: state.authReducer.authUserProfileInfo,
         preLoaderStatus: state.coreUIReducer.preLoaderStatus,
         subChatModel: state.coreUIReducer.subChatModel,
         formData: state.coreReducer.formData,   
         socketOBj: state.coreReducer.socketIOOBj,
         authUser: state.authReducer.authUserProfileInfo,  
+        coreData: state.coreReducer.apiDataList
     };
 }
 
