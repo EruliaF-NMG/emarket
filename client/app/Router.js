@@ -22,10 +22,10 @@ class Router extends Component {
   }
 
   componentWillMount(){
-    let {socketOBj,coreActions}=this.props;
-    if(!socketOBj){
-      coreActions.initWebSocket();
-    }
+    // let {socketOBj,coreActions}=this.props;
+    // if(!socketOBj){
+    //   coreActions.initWebSocket();
+    // }
   }
 
   render() {

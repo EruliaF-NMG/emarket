@@ -8,7 +8,7 @@ import {checkAuthLoginKey,logoutAuthUserKey,setProfileKey} from "../../config/St
 
 import { setInputErrors, unsetInputErrors } from "../common/CoreActions";
 import {setPreLoader} from "../common/CoreUIActions";
-
+import {resetChatState} from "../common/ChatActions";
 
 
 function registerUser(formObject) {
@@ -196,8 +196,14 @@ function setToAuthReducer(key, payload) {
   }
 }
 
-function userLogout(){
+function userLogout(socketOBj){
   return dispatch => {
+    
+    if(socketOBj){
+      socketOBj.emit('forceDisconnect',socketOBj.id);
+    }
+
+    dispatch(resetChatState());
     logout();
     dispatch(logoutUser());
   }

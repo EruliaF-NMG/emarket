@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
 import * as authenticationActions from '../../actions/auth/AuthActions';
+import * as CoreActions from "../../actions/common/CoreActions";
 
 import Init from './Inits';
 
@@ -17,14 +18,19 @@ export default function (WrappedComponent) {
         constructor() {
             super();
             this.state={
-                permissionsStatus:true
+                permissionsStatus:null
             }
             
         }
 
 
         componentDidMount() {
-            
+            const {isAuthenticated,coreActions,authUser,socketOBj} = this.props;
+            if (isAuthenticated === true) {
+                if(!socketOBj){                   
+                    coreActions.initWebSocket(authUser._id);
+                }
+            }
         }
 
 
@@ -50,19 +56,31 @@ export default function (WrappedComponent) {
 
 
         render() {
+
+            let {permissionsStatus}=this.state;
+            const {isAuthenticated,socketOBj} = this.props;
+
+            if(isAuthenticated==true){
+                if(socketOBj){
+                permissionsStatus=true;
+                }
+            }else{
+                permissionsStatus=false;
+            }
+
             return (
                 <div>
                     {
 
                         (
-                            (this.state.permissionsStatus===null) ?
+                            (permissionsStatus===null) ?
                             (
                                 <div className="initLoader">
                                    logding...
                                 </div>
                             ):
                                 (
-                                    (this.state.permissionsStatus===true)?
+                                    (permissionsStatus===true)?
                                         (
                                             <WrappedComponent {...this.props} />
                                         ):
@@ -85,13 +103,16 @@ export default function (WrappedComponent) {
 
     function mapStateToProps(state) {
         return {
-            isAuthenticated: state.authReducer.isAuthenticated
+            isAuthenticated: state.authReducer.isAuthenticated,
+            socketOBj: state.coreReducer.socketIOOBj,
+            authUser: state.authReducer.authUserProfileInfo,
         };
     }
 
     function mapDispatchToProps(dispatch) {
         return {
             authActions: bindActionCreators(authenticationActions, dispatch),
+            coreActions: bindActionCreators(CoreActions, dispatch)
         };
     }
 

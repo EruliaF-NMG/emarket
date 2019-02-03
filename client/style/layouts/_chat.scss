@@ -40,13 +40,17 @@
         width: 100%;
 
         .miniChatBody {
-          overflow-x: scroll;
+          overflow-y: scroll;
           height: 0px;
           bottom: 0;          
           float: left;
+          width: 100%;
 
           .media {
             margin-bottom: 10px;
+            .media-body{
+              flex: none;
+            }
           }
 
           .chatUserPic {
@@ -109,4 +113,11 @@
       
     }
   }
+}
+
+
+.chatBtn{
+  float: right;
+  right: 300px;
+  bottom: 200px;
 }

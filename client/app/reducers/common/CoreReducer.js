@@ -2,13 +2,14 @@
  * @Author: Nisal Madusanka(EruliaF) 
  * @Date: 2018-12-30 09:54:32 
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2019-01-31 15:37:06
+ * @Last Modified time: 2019-02-03 14:42:18
  */
 
 import {
 setInputValueKEY,setFormErrorsKEY,unSetFormErrorsKEY,
 setApiDataToStoreKey,setDBStatusKEY,setBulkInputValuesKEY,
-unSetFormInputsKEY,unSetAPIReturnsKEY,initSocketIOKEY
+unSetFormInputsKEY,unSetAPIReturnsKEY,initSocketIOKEY,
+resetAllChatStateKEY
 } from "../../config/StateKeys"
 
 const initState = {    
@@ -110,7 +111,13 @@ export default function coreReducer(state = initState, action) {
                 ...state,
                 socketIOOBj:action.payload,         
             }
-            break;                     
+            break; 
+        case resetAllChatStateKEY:  
+            return {
+                ...state,
+                socketIOOBj:initState.socketIOOBj,         
+            }
+            break;                      
         default:
             return state
     }

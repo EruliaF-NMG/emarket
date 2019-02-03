@@ -155,8 +155,11 @@ function setDataToStore(api,storeElementKey,apiMethod="GET",apiBody=null,respons
 
 }
 
-function initWebSocket(socketObj){    
-    const socket = socketIOClient(baseUrl);
+function initWebSocket(id){    
+    const socket = socketIOClient(baseUrl);   
+    socket.on('connect',(data)=>{       
+        socket.emit('clientKey',{customId:id});
+    });
     return {
         type: initSocketIOKEY,
         payload:socket

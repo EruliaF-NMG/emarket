@@ -1,12 +1,13 @@
 
 import {
-    toggleSubChatWrapperKEY,toggleSubChatBodyKEY,setSubchatReceiverKEY
+    toggleSubChatWrapperKEY,toggleSubChatBodyKEY,setSubchatReceiverKEY,
+    resetAllChatStateKEY,resetSubchatModelKEY,onlyAddToChatListKEY
 } from "../../config/StateKeys";
-import {handleInput,setDataToStore} from "./CoreActions";
+import {handleInput,setDataToStore,updateAPIDataToStore} from "./CoreActions";
 import {
-    getChatMessageListAPI
+    getChatMessageListAPI,initAndGetChatMessageListAPI
 } from "../../config/APIEndPoints";
-
+import CallApi from "../../helpers/common/CallApi";
 /**
  * @Author: Nisal Madusanka(EruliaF)
  * @returns {{type: string}}
@@ -39,10 +40,10 @@ function setSubChatReceiverData(data) {
     }
 }
 
-function manageChatPopup(data,currentUser,messageList){
+function manageChatPopup(data,currentUserID,messageList){
     return dispatch => {
         if(!messageList){
-            dispatch(setDataToStore(getChatMessageListAPI + currentUser._id+"/"+data.id,currentUser._id+"_"+data.id, "GET"));
+            dispatch(setDataToStore(getChatMessageListAPI + currentUserID+"/"+data.id,data.key, "GET"));
         }
         dispatch(setSubChatReceiverData(data));
     }
@@ -61,14 +62,17 @@ function sendChatMessage(object,messageObject){
     }
 }
 
-function onSendFire(type,socketOBj,receiver,sender,chatMessage,userType){
+function onSendFire(type,socketOBj,chatMessage,authUser,key){
     return dispatch => {
+
+        let userType=(authUser.seller==true)?({sender:"Shop",receiver:"User"}):({sender:"User",receiver:"Shop"});
+        let userList=key.split("_");
         
         if(type=="text"){
             dispatch(sendChatMessage(socketOBj,{
-                "receiver":receiver.id,
+                "receiver":userList[1],
                 "receiver_type":userType.receiver,
-                "sender":sender._id,
+                "sender":userList[0],
                 "sender_type":userType.sender,
                 "message":chatMessage,
                 "type":"text"
@@ -78,11 +82,53 @@ function onSendFire(type,socketOBj,receiver,sender,chatMessage,userType){
 }
 
 function setChatMessageToStore(receiveMsg,chatList,key){
-    console.log(receiveMsg,chatList,key);
+   
     return dispatch => {        
         chatList.push(receiveMsg);       
         dispatch(updateAPIDataToStore(chatList,key));
-      }
+    }
+}
+
+function addToChatList(data){
+    return {
+        type: onlyAddToChatListKEY,
+        payload:data
+    }
+}
+
+function newChatReceived(userIDs,requestType,isChatModelSet){
+
+    return dispatch => {
+        try {            
+
+            CallApi.call(initAndGetChatMessageListAPI+userIDs.shopID+"/"+userIDs.userID+"/"+requestType, "GET", true, null)
+                .then(function (response) {
+
+                    response=response.data.result;                    
+
+                    dispatch(updateAPIDataToStore(response.chatList,response.receiver.key));
+                    if(isChatModelSet==true){
+                        dispatch(setSubChatReceiverData(response.receiver));
+                    }else{
+                        dispatch(addToChatList(response.receiver));
+                    }                    
+
+                }).catch(function (error) {
+                    alert("error");
+                });
+
+        } catch (ex) {
+            alert("error -");
+        }
+    }
+
+}
+
+function resetChatState(){
+    return dispatch => {
+        dispatch({type: resetAllChatStateKEY});
+        dispatch({type: resetSubchatModelKEY});
+    }
 }
 
 export {
@@ -93,5 +139,8 @@ export {
     sendChatMessage,
     onSendFire,
     manageChatPopup,
-    setChatMessageToStore
+    setChatMessageToStore,
+    newChatReceived,
+    resetChatState,
+    addToChatList
 }

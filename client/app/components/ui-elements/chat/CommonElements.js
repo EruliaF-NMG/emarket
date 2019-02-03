@@ -2,12 +2,12 @@
  * @Author: Nisal Madusanka(EruliaF)
  * @Date: 2019-01-29 17:39:07
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2019-02-01 16:03:23
+ * @Last Modified time: 2019-02-03 19:10:01
  */
 
 import React from "react";
 import {getValue} from "../../../helpers/common/CommonMethods";
-import {getProfileImageIDAPI} from "../../../config/APIEndPoints";
+import {getProfileImageIDAPI,getShopLogoByIDApi} from "../../../config/APIEndPoints";
 
 const emptyFun = () => undefined;
 
@@ -56,7 +56,7 @@ const OwnMessage = ({
 
 const ChatMessageBody = ({ 
     chatMessageList = [],
-    authUser={}
+    authUserID=null
 }) => {
   return (
     <div className={"miniChatBody miniChatBodyActive"}>
@@ -66,12 +66,12 @@ const ChatMessageBody = ({
           return(
               <div key={key}>
                 {
-                  (authUser._id==message.sender_id)?(<OwnMessage
+                  (authUserID==message.sender_id)?(<OwnMessage
                     key={key}
                     message={message.chat}
                   />):(<OthersMessage
                     key={key}
-                    profileUrl={getProfileImageIDAPI+message.sender_id}
+                    profileUrl={((message.senderModel=="User")?getProfileImageIDAPI+message.sender_id:getShopLogoByIDApi+message.sender_id)}
                     message={message.chat}
                   />)
                 }
@@ -124,7 +124,7 @@ const SubChatFooter = ({
 const ChatBody =({
   chatMessageList=[],
   currentChatMessage="",
-  authUser={},
+  authUserID=null,
   onChangeTxt=emptyFun,
   onChat=emptyFun
 })=>{
@@ -132,7 +132,7 @@ const ChatBody =({
           <div className="miniChatBodyWrapper">
             <ChatMessageBody 
                 chatMessageList={chatMessageList}
-                authUser={authUser}
+                authUserID={authUserID}
             />
             <SubChatFooter
               currentChatMessage={currentChatMessage}
@@ -147,12 +147,12 @@ const SubChat = ({
   modelInitData={},
   chatActions={},
   currentChatMessage="",
-  authUser={},
+  authUserID=null,
   onChat=emptyFun,
   messageList=[]
 }) => {
   return (
-    <div className="container chatContainer">
+    <div className="container chatContainer">    
       <div className="miniChatMainWrapper">
         <div className="miniChatSubWrapper">
           <SubChatHeader
@@ -170,7 +170,7 @@ const SubChat = ({
                 currentChatMessage={currentChatMessage}
                 onChangeTxt={chatActions.getChatMessageInput}
                 onChat={onChat}
-                authUser={authUser}
+                authUserID={authUserID}
               />
             )
             :(null)

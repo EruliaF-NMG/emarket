@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import {getValue} from "../../../helpers/common/CommonMethods";
+import {getCurrentUserID} from "../../../helpers/common/ChatMessage";
 import {PageFullLoader,PageFooter} from "../common-elements/CommonElements";
 import * as CoreUIActions from "../../../actions/common/CoreUIActions";
 import * as ChatActions from "../../../actions/common/ChatActions";
@@ -14,23 +15,45 @@ class MainWrapper extends Component {
         super();
     }
 
+    componentDidMount = () => {
+        let { socketOBj } = this.props;
+        if (socketOBj) {
+            socketOBj.on('receive_message', (msg) => {
+                this.setToMessageList(msg);
+            });
+        }
+    }
+
     onChatBtn=(type)=>{
         let {
             subChatModel,chatActions,formData,
             socketOBj,authUser
         } = this.props;
-        chatActions.onSendFire(type,socketOBj,subChatModel.receiver,authUser,formData.currentChatMessage,{sender:"user",receiver:"shop"});
+        chatActions.onSendFire(type,socketOBj,formData.currentChatMessage,authUser,subChatModel.receiver.key);
+    }
+
+    setToMessageList=(msg)=>{
+        let {
+            subChatModel,chatActions,coreData,authUser,chatList
+        } = this.props; 
+        
+        if(chatList[msg.sender_id+"_"+msg.receiver_id]){
+            chatActions.setChatMessageToStore(msg,coreData[msg.sender_id+"_"+msg.receiver_id],(msg.sender_id+"_"+msg.receiver_id));
+        }else if(chatList[msg.receiver_id+"_"+msg.sender_id]){
+            chatActions.setChatMessageToStore(msg,coreData[msg.receiver_id+"_"+msg.sender_id],(msg.receiver_id+"_"+msg.sender_id));
+        }else{
+            let userIDs=((msg.senderModel=="User")?({shopID:msg.receiver_id,userID:msg.sender_id}):({shopID:msg.sender_id,userID:msg.receiver_id}));
+            chatActions.newChatReceived(userIDs,((authUser.seller==true)?"user":"shop"),((subChatModel.receiver.key==null)?true:false));
+        }        
     }
 
     render() {
         let {
             preLoaderStatus,subChatModel,chatActions,
             formData,coreData,authUser,socketOBj
-        } = this.props;
+        } = this.props;       
 
-        socketOBj.on('receive_message', (msg)=>{
-            chatActions.setChatMessageToStore(msg,coreData[(authUser._id+"_"+subChatModel.receiver.id)],(authUser._id+"_"+subChatModel.receiver.id))
-        });
+       
 
         return (
             <div className="div100">
@@ -43,8 +66,8 @@ class MainWrapper extends Component {
                  chatActions={chatActions}
                  currentChatMessage={formData.currentChatMessage||""}
                  onChat={this.onChatBtn}
-                 messageList={coreData[(authUser._id+"_"+getValue(subChatModel,"receiver.id",""))]}
-                 authUser={authUser}   
+                 messageList={coreData[subChatModel.receiver.key]}
+                 authUserID={getCurrentUserID(subChatModel.receiver.key)}   
                 />
                 <PageFullLoader status={preLoaderStatus}/>
             </div>
@@ -59,8 +82,8 @@ function mapStateToProps(state) {
         subChatModel: state.coreUIReducer.subChatModel,
         formData: state.coreReducer.formData,   
         socketOBj: state.coreReducer.socketIOOBj,
-        authUser: state.authReducer.authUserProfileInfo,  
-        coreData: state.coreReducer.apiDataList
+        coreData: state.coreReducer.apiDataList,
+        chatList: state.coreUIReducer.chatList,
     };
 }
 

@@ -2,7 +2,7 @@
  * @Author: Nisal Madusanka(EruliaF) 
  * @Date: 2018-12-25 10:56:38 
  * @Last Modified by: Nisal Madusanka(EruliaF)
- * @Last Modified time: 2019-01-31 15:35:40
+ * @Last Modified time: 2019-02-03 18:54:10
  */
 
 
@@ -17,6 +17,7 @@ export const unSetFormInputsKEY="@coreReducer/UNSET_INPUTS";
 export const unSetAPIReturnsKEY="@coreReducer/UNSET_API_RETURNS";
 //socketIO
 export const initSocketIOKEY="@coreReducer/INIT_SOCKET_IO";
+export const resetAllChatStateKEY="@coreReducer/RESET_SOCKET_IO"
 
 ///coreUIReducer Keys
 export const preLoaderKey="@coreReducer/PAGE_PRE_LOARDER";
@@ -25,6 +26,8 @@ export const manageModelKEY="@coreReducer/SHOW_HIDE_MODEL";
 export const toggleSubChatWrapperKEY="@coreUIReducer/TOGGLE_CHAT_WRAPPER";
 export const toggleSubChatBodyKEY="@coreUIReducer/TOGGLE_CHAT_BODY";
 export const setSubchatReceiverKEY="@coreUIReducer/SET_CHAT_RECEIVER";
+export const resetSubchatModelKEY="@coreUIReducer/RESET_SUBCHAT_MODEL";
+export const onlyAddToChatListKEY="@coreUIReducer/SET_TO_CHAT_LIST";
 
 ///AuthReducer Keys
 export const checkAuthLoginKey="@authReducer/SET_AUTH_DATA";

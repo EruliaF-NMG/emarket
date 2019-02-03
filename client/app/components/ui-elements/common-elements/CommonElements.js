@@ -85,7 +85,7 @@ const PageFooter = ({
   chatActions={},
   currentChatMessage="",
   messageList=[],
-  authUser={},
+  authUserID=null,
   onChat=emptyFun
 }) => {
  
@@ -99,7 +99,7 @@ const PageFooter = ({
             currentChatMessage={currentChatMessage}
             onChat={onChat}
             messageList={messageList}
-            authUser={authUser}
+            authUserID={authUserID}
           />
         ):(null)
       }
@@ -107,6 +107,7 @@ const PageFooter = ({
       <div className="footerDiv">
         <div className="container">
           <p>Sample project by EruliaF</p>
+          
         </div>
       </div>
     </div>

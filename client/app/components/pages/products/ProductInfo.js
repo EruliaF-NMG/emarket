@@ -87,11 +87,17 @@ class ProductInfo extends Component {
                       <Button
                           wrapperCss="float-left mr-3"
                           buttonTxt="Chat with shop owner"
-                          onClickBtn={()=>chatActions.manageChatPopup({
-                            id:getValue(coreData,"currentProduct.shop._id","-"),
-                            imgUrl:getShopLogoByIDApi+getValue(coreData,"currentProduct.shop._id","-"),
-                            name:getValue(coreData,"currentProduct.shop.name","-"),
-                          },authUser,getValue(coreData,(authUser._id+"_"+getValue(coreData,"currentProduct.shop._id","")),null))}
+                          onClickBtn={()=>chatActions.manageChatPopup(
+                              {
+                                id:getValue(coreData,"currentProduct.shop._id","-"),
+                                imgUrl:getShopLogoByIDApi+getValue(coreData,"currentProduct.shop._id","-"),
+                                name:getValue(coreData,"currentProduct.shop.name","-"),
+                                key:authUser._id+"_"+getValue(coreData,"currentProduct.shop._id","")
+                              },
+                              authUser._id,
+                              coreData[(authUser._id+"_"+getValue(coreData,"currentProduct.shop._id",""))]
+                            )                          
+                          }
                       />
 
                      </div>

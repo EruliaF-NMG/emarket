@@ -1,6 +1,7 @@
 import {
 preLoaderKey,manageModelKEY,setSubchatReceiverKEY,
-toggleSubChatWrapperKEY,toggleSubChatBodyKEY
+toggleSubChatWrapperKEY,toggleSubChatBodyKEY,
+resetSubchatModelKEY,onlyAddToChatListKEY
 } from "../../config/StateKeys"
 
 
@@ -14,9 +15,9 @@ const initState = {
     subChatModel:{
         status:false,
         minimizeStatus:false,
-        receiver:{id:"",name:"",imgUrl:""}
-    }
-
+        receiver:{id:null,name:null,imgUrl:null,key:null}
+    },
+    chatList:{}
 }
 
 export default function coreUIReducer(state = initState, action) {
@@ -46,16 +47,26 @@ export default function coreUIReducer(state = initState, action) {
                     status:true,
                     minimizeStatus:true,
                     receiver:action.payload
+                },
+                chatList:{
+                    ...state.chatList,
+                    [action.payload.key]:action.payload
                 }
             };
-            break; 
+            break;
+        case onlyAddToChatListKEY:
+            return {
+                ...state,               
+                chatList:{
+                    ...state.chatList,
+                    [action.payload.key]:action.payload
+                }
+            };
+            break;
         case toggleSubChatWrapperKEY:
             return {
                 ...state,
-                subChatModel:{
-                   ...state.subChatModel,
-                   status:!state.subChatModel.status
-                }
+                subChatModel:initState.subChatModel
             };
             break;   
         case toggleSubChatBodyKEY:
@@ -66,7 +77,14 @@ export default function coreUIReducer(state = initState, action) {
                    minimizeStatus:!state.subChatModel.minimizeStatus
                 }
             };
-            break;                       
+            break;   
+        case resetSubchatModelKEY:  
+            return {
+                ...state,
+                subChatModel:initState.subChatModel, 
+                chatList:initState.chatList        
+            }
+            break;                          
         default:
             return state
     }
